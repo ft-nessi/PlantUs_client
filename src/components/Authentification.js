@@ -12,29 +12,19 @@ export function Authentification({
     password: "",
   });
 
+  const handleUserTypeChange = (event) => {
+    setFormState({
+      ...formState,
+      isUser: event.target.value === 'user',
+    });
+  };
+
   const handleFormState = (event) => {
-    setFormState(() => {
-      if (event.target.id === "user") {
-        return ({
-          ...formState,
-          isUser: true,
-          [event.target.name]: event.target.value,
-        });
-      } else if (event.target.id === "ranger") {
-        return ({
-          ...formState,
-          isUser: false,
-          [event.target.name]: event.target.value,
-        });} else {
-          return ({
-          ...formState,
-          [event.target.name]: event.target.value,
-        })
-        }
-      }
-    );
-    console.log("formState", formState);
-    console.log("checked", event.target.checked)
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value,
+    });
+    console.log(formState);
   };
 
   const handleSubmit = (event) => {
@@ -48,20 +38,22 @@ export function Authentification({
           id="user"
           type="radio"
           name="tabs"
-          onChange={handleFormState}
-          // value={true}
-          checked
+          onChange={handleUserTypeChange}
+          checked={formState.isUser}
+          value="user"
         />
-        <label className="tab-label" for="user">
+        <label className="tab-label" htmlFor="user">
           User
         </label>
         <input
           id="ranger"
           type="radio"
           name="tabs"
-          onChange={handleFormState}
+          onChange={handleUserTypeChange}
+          checked={!formState.isUser}
+          value="ranger"
         />
-        <label className="tab-label" for="ranger">
+        <label className="tab-label" htmlFor="ranger">
           Ranger
         </label>
         <form onSubmit={handleSubmit}>
