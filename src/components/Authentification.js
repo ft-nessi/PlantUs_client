@@ -9,6 +9,7 @@ export function Authentification({
     isUser: true,
     username: "",
     firstname: "",
+    email: "",
     password: "",
   });
 
@@ -24,7 +25,6 @@ export function Authentification({
       ...formState,
       [event.target.name]: event.target.value,
     });
-    console.log(formState);
   };
 
   const handleSubmit = (event) => {
@@ -70,6 +70,13 @@ export function Authentification({
             name="firstname"
             value={formState.firstname}
             placeholder="Firstname"
+            onChange={handleFormState}
+          />
+          <input
+            type="email"
+            name="email"
+            value={formState.email}
+            placeholder="Email"
             onChange={handleFormState}
           />
           <input
