@@ -9,11 +9,16 @@ export function Signup() {
   const navigate = useNavigate();
 
   const signup = async (formState) => {
-    console.log("formState", formState);
-    const response = await axios.post(API_BASE_URL + "/signup/user", formState);
+    try{
+      const isUserType = formState.isUser === true ? "/user" : "/ranger" 
+      const response = await axios.post(API_BASE_URL + "/signup" + isUserType, formState);
 
-    console.log(response.data);
-    navigate("/profile");
+      console.log(response.data);
+      navigate("/profile");
+
+    }catch(err){
+      setErrorState(err)
+    }
   };
 
   return (
