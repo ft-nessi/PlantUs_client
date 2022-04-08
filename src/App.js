@@ -20,10 +20,10 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/markedTrees" element={} />
+          {/* <Route path="/profile/markedTrees" element={} />
           <Route path="/profile/treedetails" element={} />
           <Route path="/profile/plantedTrees" element={} />
-          <Route path="/profile/treedetails" element={} />
+          <Route path="/profile/treedetails" element={} /> */}
       </Route>
     </Routes>
   );

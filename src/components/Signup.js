@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
-import { Authentification } from "./Authentification";
+import { AuthSignup } from "./AuthSignup";
 
 export function Signup() {
   const [errorState, setErrorState] = useState();
@@ -24,7 +24,7 @@ export function Signup() {
   return (
     <div>
       <h3>Signup Page</h3>
-      <Authentification
+      <AuthSignup
         submitButtonText={"Signup!"}
         submitFormAction={signup}
         error={errorState}
