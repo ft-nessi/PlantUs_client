@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 export function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
 
-  const addUserContext = (newUser) => {
+  const addUserToContext = (newUser) => {
     if (user !== null) return;
     setUser(newUser);
   };
@@ -16,7 +16,7 @@ export function AuthProviderWrapper(props) {
 
   return (
     <AuthContext.Provider
-      value={{ user, addUserContext, removeUserFromContext }}
+      value={{ user, addUserToContext, removeUserFromContext }}
     >
       {props.children}
     </AuthContext.Provider>
