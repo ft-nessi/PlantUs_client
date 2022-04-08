@@ -42,55 +42,57 @@ export function Authentification({
     submitFormAction(formState);
   };
   return (
-    <div className="login-signup">
-      <div className="login-register-div">
-        <input
-          id="user"
-          type="radio"
-          name="tabs"
-          onChange={handleFormState}
-          // value={true}
-          checked
-        />
-        <label className="tab-label" for="user">
-          User
-        </label>
-        <input
-          id="ranger"
-          type="radio"
-          name="tabs"
-          onChange={handleFormState}
-        />
-        <label className="tab-label" for="ranger">
-          Ranger
-        </label>
-        <form onSubmit={handleSubmit}>
-          {error && error.message}
+    <div className="container-form">
+      <div className="login-signup">
+        <div className="login-register-div">
           <input
-            type="text"
-            name="username"
-            value={formState.username}
-            placeholder="Username"
+            id="user"
+            type="radio"
+            name="tabs"
+            onChange={handleFormState}
+            // value={true}
+            checked
+          />
+          <label className="tab-label" for="user">
+            User
+          </label>
+          <input
+            id="ranger"
+            type="radio"
+            name="tabs"
             onChange={handleFormState}
           />
-          <input
-            type="text"
-            name="firstname"
-            value={formState.firstname}
-            placeholder="Firstname"
-            onChange={handleFormState}
-          />
-          <input
-            type="password"
-            name="password"
-            value={formState.password}
-            placeholder="Password"
-            onChange={handleFormState}
-          />
-          <button className="btn-signup" type="submit">
-            {submitButtonText}
-          </button>
-        </form>
+          <label className="tab-label" for="ranger">
+            Ranger
+          </label>
+          <form onSubmit={handleSubmit}>
+            {error && error.message}
+            <input
+              type="text"
+              name="username"
+              value={formState.username}
+              placeholder="Username"
+              onChange={handleFormState}
+            />
+            <input
+              type="text"
+              name="firstname"
+              value={formState.firstname}
+              placeholder="Firstname"
+              onChange={handleFormState}
+            />
+            <input
+              type="password"
+              name="password"
+              value={formState.password}
+              placeholder="Password"
+              onChange={handleFormState}
+            />
+            <button className="btn-signup" type="submit">
+              {submitButtonText}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
