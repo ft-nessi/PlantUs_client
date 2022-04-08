@@ -19,8 +19,8 @@ export function Signup() {
       );
 
       console.log(response.data);
-      addUserToContext(response.data.user);
       navigate("/profile");
+      addUserToContext(response.data.user);
     } catch (err) {
       setErrorState(err);
     }

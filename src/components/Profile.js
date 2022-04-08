@@ -7,7 +7,7 @@ import { AuthContext } from "../context/AuthProviderWrapper";
 export function Profile() {
   const navigate = useNavigate();
   const { user, removeUserFromContext } = useContext(AuthContext);
-
+  console.log(AuthContext);
   useEffect(() => {
     if (!user) {
       navigate("/login");
