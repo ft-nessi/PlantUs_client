@@ -1,35 +1,33 @@
 import { useState } from "react";
 
-export function Authentification({
+export function AuthLogin({
   submitFormAction,
   submitButtonText,
   error = null,
 }) {
-  const [formState, setFormState] = useState({
+  const [loginState, setLoginState] = useState({
     isUser: true,
-    username: "",
-    firstname: "",
     email: "",
     password: "",
   });
 
   const handleUserTypeChange = (event) => {
-    setFormState({
-      ...formState,
+    setLoginState({
+      ...loginState,
       isUser: event.target.value === "user",
     });
   };
 
-  const handleFormState = (event) => {
-    setFormState({
-      ...formState,
+  const handleLoginState = (event) => {
+    setLoginState({
+      ...loginState,
       [event.target.name]: event.target.value,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    submitFormAction(formState);
+    submitFormAction(loginState);
   };
   return (
     <div className="container-form">
@@ -40,7 +38,7 @@ export function Authentification({
             type="radio"
             name="tabs"
             onChange={handleUserTypeChange}
-            checked={formState.isUser}
+            checked={loginState.isUser}
             value="user"
           />
           <label className="tab-label" htmlFor="user">
@@ -51,7 +49,7 @@ export function Authentification({
             type="radio"
             name="tabs"
             onChange={handleUserTypeChange}
-            checked={!formState.isUser}
+            checked={!loginState.isUser}
             value="ranger"
           />
           <label className="tab-label" htmlFor="ranger">
@@ -60,32 +58,18 @@ export function Authentification({
           <form onSubmit={handleSubmit}>
             {error && error.message}
             <input
-              type="text"
-              name="username"
-              value={formState.username}
-              placeholder="Username"
-              onChange={handleFormState}
-            />
-            <input
-              type="text"
-              name="firstname"
-              value={formState.firstname}
-              placeholder="Firstname"
-              onChange={handleFormState}
-            />
-            <input
               type="email"
               name="email"
-              value={formState.email}
+              value={loginState.email}
               placeholder="Email"
-              onChange={handleFormState}
+              onChange={handleLoginState}
             />
             <input
               type="password"
               name="password"
-              value={formState.password}
+              value={loginState.password}
               placeholder="Password"
-              onChange={handleFormState}
+              onChange={handleLoginState}
             />
             <button className="btn-signup" type="submit">
               {submitButtonText}
