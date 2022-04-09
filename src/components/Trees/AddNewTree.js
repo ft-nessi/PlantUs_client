@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { API_BASE_URL } from "../consts";
+import { API_BASE_URL } from "../../consts";
 
 export function AddNewTree({ setMarkedTrees }) {
   const [newTree, setNewTree] = useState({ treename: "New tree", planted: false });
