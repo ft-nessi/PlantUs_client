@@ -18,6 +18,13 @@ export function Trees() {
     }
   }, [user, navigate]);
 
+
+  // function handleSubmitTree(event) {
+  //   event.preventDefault()
+
+    
+  // }
+
   // router.get /ranger/markedtrees - find all trees with the ranger's id
   useEffect(() => {
     async function fetchAllTrees() {
@@ -77,11 +84,15 @@ export function Trees() {
     <div>
       <AddNewTree setAllTrees={setAllTrees} />
       {allTrees.map((tree) => (
+        <div>
         <SingleTree
           key={tree._id}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
+          // handleSubmitTree={handleSubmitTree}
         />
+        {/* <p>This is a single tree with the coordinates {tree.location.coordinates}</p> */}
+        </div>
       ))}
     </div>
   );
