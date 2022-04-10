@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "leaflet": "^1.7.1",
+    "proj4": "^2.8.0",
     "react": "^17",
     "react-dom": "^17",
     "react-leaflet": "^3.2.5",
