@@ -9,7 +9,7 @@ import {
   Rectangle,
   TileLayer,
 } from "react-leaflet";
-import * as L from "leaflet";
+// import * as L from "leaflet";
 
 //Don't forget to import the css
 import "leaflet/dist/leaflet.css";
