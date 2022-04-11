@@ -11,10 +11,11 @@ export function Signup() {
   const { addUserToContext } = useContext(AuthContext);
 
   const signup = async (formState) => {
+    console.log(formState)
     try {
-      const isUserType = formState.isUser === true ? "/user" : "/ranger";
+      console.log(API_BASE_URL + "/signup")
       const response = await axios.post(
-        API_BASE_URL + "/signup" + isUserType,
+        API_BASE_URL + "/signup",
         formState
       );
 

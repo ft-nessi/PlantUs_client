@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../consts";
-import { AuthContext } from "../context/AuthProviderWrapper";
+import { AuthContext } from "../../context/AuthProviderWrapper";
 import { AddNewTree } from "./AddNewTree";
 import { SingleTree } from "./SingleTree";
 
@@ -17,13 +17,6 @@ export function Trees() {
       navigate("/login");
     }
   }, [user, navigate]);
-
-
-  // function handleSubmitTree(event) {
-  //   event.preventDefault()
-
-    
-  // }
 
   // router.get /ranger/markedtrees - find all trees with the ranger's id
   useEffect(() => {
@@ -82,18 +75,18 @@ export function Trees() {
 
   return (
     <div>
-      <AddNewTree setAllTrees={setAllTrees} />
+      {/* <AddNewTree setAllTrees={setAllTrees} /> */}
       {allTrees.map((tree) => (
         <div>
         <SingleTree
           key={tree._id}
+          tree={tree}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
-          // handleSubmitTree={handleSubmitTree}
         />
-        {/* <p>This is a single tree with the coordinates {tree.location.coordinates}</p> */}
         </div>
       ))}
+
     </div>
   );
 }
