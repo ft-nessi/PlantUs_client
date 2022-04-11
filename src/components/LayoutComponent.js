@@ -15,7 +15,7 @@ export function LayoutComponent() {
       removeUserFromContext();
       navigate("/");
     } catch (err) {
-      alert("There was an error logging out");
+      console.log("There was an error logging out", err);
     }
   };
 
