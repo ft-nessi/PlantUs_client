@@ -1,31 +1,29 @@
 // import { useContext } from "react";
 // import { AuthContext } from "../context/AuthProviderWrapper";
-import { useNavigate } from "react-router-dom";
-import MyMap from "./MyMap";
+// import { useNavigate } from "react-router-dom";
+// import MyMap from "./MyMap";
 
 
 
-export function Ranger(){
-  //we need to validate if User is a ranger or not
-  const navigate = useNavigate();
+// export function Ranger(){
+//   //we need to validate if User is a ranger or not
+//   const navigate = useNavigate();
 
-  function handleNavigateTreelist() {
-    navigate("/profile/markedTrees");
-  }
+//   function handleNavigateTreelist() {
+//     navigate("/profile/markedTrees");
+//   }
 
-  return (
-    <div>
-      <h3>Ranger Profile</h3>
-      <h2>Foto</h2>
-      <h2>motive</h2>
-      <MyMap />
-      <button onClick={handleNavigateTreelist}>To the Treeslist</button>
+//   return (
+//     <div>
+//       <h3>Ranger Profile</h3>
+     
+//       <button onClick={handleNavigateTreelist}>To the Treeslist</button>
       
-    </div>
-  );
+//     </div>
+//   );
 
 
-}
+// }
 
 
 
