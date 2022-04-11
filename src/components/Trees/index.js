@@ -2,8 +2,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../consts";
-import { AuthContext } from "../context/AuthProviderWrapper";
-import { AddNewTree } from "./AddNewTree";
+import { AuthContext } from "../../context/AuthProviderWrapper";
+// import { AddNewTree } from "./AddNewTree";
 import { SingleTree } from "./SingleTree";
 
 export function Trees() {
@@ -75,14 +75,18 @@ export function Trees() {
 
   return (
     <div>
-      <AddNewTree setAllTrees={setAllTrees} />
+      {/* <AddNewTree setAllTrees={setAllTrees} /> */}
       {allTrees.map((tree) => (
+        <div>
         <SingleTree
           key={tree._id}
+          tree={tree}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
         />
+        </div>
       ))}
+
     </div>
   );
 }
