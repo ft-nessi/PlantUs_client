@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../consts";
 import { AuthContext } from "../../context/AuthProviderWrapper";
-import { AddNewTree } from "./AddNewTree";
+// import { AddNewTree } from "./AddNewTree";
 import { SingleTree } from "./SingleTree";
 
 export function Trees() {

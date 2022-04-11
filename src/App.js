@@ -9,7 +9,7 @@ import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import { Ranger } from "./components/Ranger";
 import { AddNewTree } from "./components/Trees/AddNewTree";
-import { Trees } from "./components/Trees/index";
+// import { Trees } from "./components/Trees/index";
 import { RangerTreeList } from "./components/RangerTreeList";
 
 export default function App() {
