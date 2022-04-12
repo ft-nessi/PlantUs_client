@@ -57,10 +57,11 @@ export function Trees() {
   };
   // router.delete /ranger/markedtrees find a tree with that id and delete it
   const deleteSingleTree = async (idToDelete) => {
+    console.log(idToDelete)
     try {
-      const response = await axios.delete(
-        `${API_BASE_URL}/ranger/markedtrees`,
-        { id: idToDelete }
+      const response = await axios.post(
+        `${API_BASE_URL}/ranger/markedtrees/delete`,
+        { _id: idToDelete }
       );
       console.log(response.data);
       setAllTrees((oldTrees) => {
