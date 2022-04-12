@@ -7,7 +7,7 @@ import { LayoutComponent } from "./components/LayoutComponent";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import { AddNewTree } from "./components/Trees/AddNewTree";
-import { RangerTreeList } from "./components/RangerTreeList";
+import { TreeList } from "./components/Trees/TreeList";
 import { Profile } from "./components/Profile";
 import { AuthContext } from "./context/AuthProviderWrapper"
 
@@ -34,8 +34,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-        {isUser && <Route path= "/profile/mytrees" element={<RangerTreeList />} />}
-        {isRanger && <Route path= "/profile/markedtrees" element={<RangerTreeList />}/>}
+        {isUser && <Route path= "/profile/mytrees" element={<TreeList />} />}
+        {isRanger && <Route path= "/profile/markedtrees" element={<TreeList />}/>}
           <Route path="/profile/newtree" element={<AddNewTree />} />
           {/* <Route path="/profile/plantedTrees" element={} />
           <Route path="/profile/treedetails" element={} /> */}

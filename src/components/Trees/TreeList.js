@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Trees } from "./Trees";
+import { Trees } from ".";
 // import { SingleTree } from "./Trees/SingleTree";
 
 
-export function RangerTreeList() {
+export function TreeList() {
     const navigate = useNavigate()
 
     function handleNavigateNewTree() {
