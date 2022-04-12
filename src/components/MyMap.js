@@ -28,7 +28,7 @@ const rectangle = [
 function MyMap({allTreeState}) {
   //Some random co-ordinate
   const position = [51.2, 10];
-  console.log(allTreeState, Number(allTreeState[0].location.coordinatesX));
+  // console.log(allTreeState, Number(allTreeState[0].location.coordinatesX));
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
@@ -73,14 +73,14 @@ function MyMap({allTreeState}) {
             <FeatureGroup pathOptions={{ color: "purple" }}>
               <Popup>Popup in FeatureGroup</Popup>
               <LayerGroup>
-              {allTreeState.forEach((tree) => {
+              {/* {allTreeState.forEach((tree) => {
                 console.log(tree)
                 return (<Circle
                   center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
                   pathOptions={{ color: "green", fillColor: "green" }}
                   radius={100}
                 />)
-              })}
+              })} */}
               <Circle
                   center={[50, 10]}
                   pathOptions={{ color: "green", fillColor: "green" }}
