@@ -6,11 +6,33 @@ import { AuthContext } from "../../context/AuthProviderWrapper";
 // import { AddNewTree } from "./AddNewTree";
 import { SingleTree } from "./SingleTree";
 
+export async function updateTree(updatedTree, user, onAfterRequest) {
+  try {
+    if (!user.isUser) {
+      const response = await axios.put(
+        `${API_BASE_URL}/ranger/markedtrees`,
+        updatedTree
+      );
+      console.log("response data", response.data);
+      onAfterRequest(response);
+    } else if (user.isUser) {
+      const response = await axios.put(
+        `${API_BASE_URL}/owner/mytrees`,
+        updatedTree
+      );
+      console.log("response data", response.data);
+      onAfterRequest(response);
+    }
+  } catch (err) {
+    console.log("Error in updating the tree on the server", err);
+  }
+}
+
 export function Trees() {
   const [allTrees, setAllTrees] = useState([]);
 
   const navigate = useNavigate();
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) {
@@ -22,6 +44,7 @@ export function Trees() {
   useEffect(() => {
     async function fetchAllTrees() {
       try {
+        console.log("Yo", user);
         if (!user.isUser) {
           const { data } = await axios.get(
             `${API_BASE_URL}/ranger/markedtrees`
@@ -45,39 +68,16 @@ export function Trees() {
   }, [user, navigate]);
 
   const updateSingleTree = async (idToUpdate, updatedTree) => {
-    try {
-      if (!user.isUser) {
-        const response = await axios.put(
-          `${API_BASE_URL}/ranger/markedtrees`,
-          updatedTree
-        );
-        console.log("response data", response.data);
-        setAllTrees((oldTrees) => {
-          return oldTrees.map((tree) => {
-            if (idToUpdate === tree._id) {
-              return response.data.update;
-            }
-            return tree;
-          });
+    updateTree(updatedTree, user, (response) => {
+      setAllTrees((oldTrees) => {
+        return oldTrees.map((tree) => {
+          if (idToUpdate === tree._id) {
+            return response.data.update;
+          }
+          return tree;
         });
-      } else if (user.isUser) {
-        const response = await axios.put(
-          `${API_BASE_URL}/owner/mytrees`,
-          updatedTree
-        );
-        console.log("response data", response.data);
-        setAllTrees((oldTrees) => {
-          return oldTrees.map((tree) => {
-            if (idToUpdate === tree._id) {
-              return response.data.update;
-            }
-            return tree;
-          });
-        });
-      }
-    } catch (err) {
-      console.log("Error in updating the tree on the server", err);
-    }
+      });
+    });
   };
   // router.put /ranger/markedtrees - find a tree with a specific id and update it
   // const updateSingleTree = async (idToUpdate, updatedTree) => {
@@ -123,12 +123,15 @@ export function Trees() {
     <div>
       {/* <AddNewTree setAllTrees={setAllTrees} /> */}
       {allTrees.map((tree) => (
-        <SingleTree
-          key={tree._id}
-          tree={tree}
-          updateSingleTree={updateSingleTree}
-          deleteSingleTree={deleteSingleTree}
-        />
+        <div>
+          <SingleTree
+            key={tree._id}
+            tree={tree}
+            updateSingleTree={updateSingleTree}
+            deleteSingleTree={deleteSingleTree}
+          />
+          {/* <MyMap tree={tree} updateSingleTree={updateSingleTree}/> */}
+        </div>
       ))}
     </div>
   );

@@ -20,7 +20,7 @@ export function Profile() {
     async function fetchAllTrees() {
       try {
         const { data } = await axios.get(
-          `${API_BASE_URL}/ranger/markedtrees`
+          `${API_BASE_URL}/ranger/markedtrees/all`
         );
         console.log(data);
         if (!data.trees) return;

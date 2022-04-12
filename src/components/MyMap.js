@@ -14,6 +14,9 @@ import {
 //Don't forget to import the css
 import "leaflet/dist/leaflet.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProviderWrapper";
+import { updateTree } from "./Trees/index";
 
 // const ironhackLogo = new L.Icon({
 // 	iconUrl: 'https://i1.wp.com/www.alliron.vc/wp-content/uploads/2018/05/logo-ironhack-1.png',
@@ -26,24 +29,38 @@ const rectangle = [
   [51.5, -0.06],
 ];
 
-function MyMap({allTreeState = []}) {
+function MyMap({ allTreeState = [] }) {
   //Some random co-ordinate
   const position = [51.2, 10];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   function handleCLick() {
-    navigate("/profile/markedTrees")
+    navigate("/profile/markedTrees");
+  }
+
+  function getHandleToAddIdFunction(tree) {
+    return async function handleToAddId(e) {
+      e.preventDefault();
+      await updateTree({ ...tree, ownerId: user._id }, user, () => {});
+      alert("New tree was added to myTrees");
+      navigate("/profile/mytrees");
+    };
   }
 
   if (allTreeState.length) {
-    console.log(allTreeState, Number(allTreeState[0].location.coordinatesX))
+    console.log(allTreeState, Number(allTreeState[0].location.coordinatesX));
   }
+
+  const isLoggedIn = Boolean(user);
+  const isOwner = isLoggedIn && user.isUser;
+  const isRanger = isLoggedIn && !user.isUser;
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
     <div>
       <MapContainer
-        style={{ width: "50vw", height: "30vh" }}
+        style={{ width: "100vw", height: "60vh" }}
         center={position}
         zoom={3}
         scrollWheelZoom={false}
@@ -53,68 +70,68 @@ function MyMap({allTreeState = []}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl position="topright">
-          <LayersControl.Overlay name="Marked Trees">
-          <LayerGroup>
-            <Marker position={center}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-              {allTreeState.map((tree) => {
-                console.log(tree)
-                return (
-                  <div key={tree._id}>
-                  <Circle
-                  center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}>
-                <Popup>{tree.treename}, {tree.kind} <br/>
-                <button onClick={handleCLick}>To marked trees</button></Popup>
-                  </Circle>
-                </div>)
-              })}
-            </Marker>
-              </LayerGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked name="Layer group with circles">
+          <LayersControl.Overlay checked name="All Trees">
             <LayerGroup>
-              <Circle
-                center={[51.2, 10.4]}
-                pathOptions={{ fillColor: "blue" }}
-                radius={200}
-              />
-              <Circle
-                center={[51.2, 10.2]}
-                pathOptions={{ fillColor: "red" }}
-                radius={100}
-                // stroke={false}
-              />
-              <Circle
-                center={[51.2, 10.21]}
-                pathOptions={{ fillColor: "red" }}
-                radius={200}
-                stroke={false}
-              />
-            <FeatureGroup>
-              <LayerGroup>
-              {/* {allTreeState.map((tree) => {
-                console.log(tree)
-                return (
-                  <div key={tree._id}>
-                <Popup>Tree</Popup>
-                  <Circle
-                  center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}
-                />
-                </div>)
-              })} */}
-              <Circle
-                  center={[50, 10]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}
-                />
-              </LayerGroup>
-            </FeatureGroup>
+              <Marker position={center}>
+                {allTreeState.map((tree) => {
+                  console.log(tree);
+                  return (
+                    <div key={tree._id}>
+                      <Circle
+                        center={[
+                          Number(tree.location.coordinatesX),
+                          Number(tree.location.coordinatesY),
+                        ]}
+                        pathOptions={{ color: "green", fillColor: "green" }}
+                        radius={100}
+                      >
+                        <Popup>
+                          {tree.treename}, {tree.kind} <br />
+                          <button onClick={handleCLick}>To marked trees</button>
+                        </Popup>
+                      </Circle>
+                    </div>
+                  );
+                })}
+              </Marker>
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="markedTrees">
+            <LayerGroup>
+              <Marker position={center}>
+                {allTreeState.map((tree) => {
+                  console.log(
+                    "Why am I not happening",
+                    isOwner,
+                    tree,
+                    tree.ownerId
+                  );
+                  if (isOwner && !tree.ownerId) {
+                    return (
+                      <div key={tree._id}>
+                        <Circle
+                          center={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          pathOptions={{ color: "green", fillColor: "green" }}
+                          radius={100}
+                        >
+                          <Popup>
+                            {tree.treename}, {tree.kind} <br />
+                            <button onClick={handleCLick}>
+                              To marked trees
+                            </button>
+                            <button onClick={getHandleToAddIdFunction(tree)}>
+                              Add to my trees
+                            </button>
+                          </Popup>
+                        </Circle>
+                      </div>
+                    );
+                  }
+                })}
+              </Marker>
             </LayerGroup>
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Feature group">
