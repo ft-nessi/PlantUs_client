@@ -76,7 +76,6 @@ export function Trees() {
         });
       }
     } catch (err) {
-      setErrorState(err);
       console.log("Error in updating the tree on the server", err);
     }
   };
