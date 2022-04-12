@@ -24,10 +24,17 @@ export function Trees() {
   useEffect(() => {
     async function fetchAllTrees() {
       try {
-        const { data } = await axios.get(`${API_BASE_URL}/ranger/markedtrees`);
-        console.log(data);
-        if (!data.trees) return;
-        setAllTrees(data.trees);
+        if (!user.isUser) {
+          const { data } = await axios.get(`${API_BASE_URL}/ranger/markedtrees`);
+          console.log(data);
+          if (!data.trees) return;
+          setAllTrees(data.trees);
+        } else if (user.isUser) {
+          const { data } = await axios.get(`${API_BASE_URL}/owner/mytrees`);
+          console.log(data);
+          if (!data.trees) return;
+          setAllTrees(data.trees);
+        }
       } catch (err) {
         console.log("There is an error");
         console.error(err);

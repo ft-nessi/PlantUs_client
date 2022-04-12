@@ -1,12 +1,15 @@
 // import { useContext } from "react";
 // import { AuthContext } from "../../context/AuthProviderWrapper";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthProviderWrapper";
 
 export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorState }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formEdit, setFormEdit] = useState(tree);
-  // const user = useContext(AuthContext);
+
+  const user = useContext(AuthContext);
+
   console.log(tree);
   const handleUpdateTree = () => {
     setIsEditing(false);
@@ -42,10 +45,10 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
             location: {tree.location.coordinatesX},{tree.location.coordinatesY}
           </p>
           <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDeleteTree}>Delete!</button>
+          {!user.isUser && (<button onClick={handleDeleteTree}>Delete!</button>)}
         </div>
       )}
-      {isEditing && (
+      {isEditing && !user.isUser && (
         <form onSubmit={handleUpdateTree}>
           <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
             <h2>Name:{tree.treename}</h2>
@@ -71,6 +74,21 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
                 value={formEdit.location.coordinatesY} 
                 onChange={handleChange}
               />]
+            </p>
+            <button type="submit">Save</button>
+            {errorState && errorState}
+          </div>
+        </form>
+      )}
+      {isEditing && user.isUser && (
+        <form onSubmit={handleUpdateTree}>
+          <div style={{ backgroundColor: "green"}}>
+            <h2>Name:<input type="text" name="treename" onChange={handleChange} value={formEdit.treename}/></h2>
+            <p>
+              Possible kinds:{formEdit.kind}
+            </p>
+            <p>
+              location: [{formEdit.location.coordinatesX}, {formEdit.location.coordinatesY}]
             </p>
             <button type="submit">Save</button>
             {errorState && errorState}
