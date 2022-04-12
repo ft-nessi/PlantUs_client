@@ -44,22 +44,63 @@ export function Trees() {
     fetchAllTrees();
   }, [user, navigate]);
 
-  // router.put /ranger/markedtrees - find a tree with a specific id and update it
   const updateSingleTree = async (idToUpdate, updatedTree) => {
-    const response = await axios.put(
-      `${API_BASE_URL}/ranger/markedtrees`,
-      updatedTree
-    );
-    console.log("Got", response.data);
-    setAllTrees((oldTrees) => {
-      return oldTrees.map((tree) => {
-        if (idToUpdate === tree._id) {
-          return response.data.update;
-        }
-        return tree;
-      });
-    });
+    try {
+      if (!user.isUser) {
+        const response = await axios.put(
+          `${API_BASE_URL}/ranger/markedtrees`,
+          updatedTree
+        );
+        console.log("response data", response.data);
+        setAllTrees((oldTrees) => {
+          return oldTrees.map((tree) => {
+            if (idToUpdate === tree._id) {
+              return response.data.update;
+            }
+            return tree;
+          });
+        });
+      } else if (user.isUser) {
+        const response = await axios.put(
+          `${API_BASE_URL}/owner/mytrees`,
+          updatedTree
+        );
+        console.log("response data", response.data);
+        setAllTrees((oldTrees) => {
+          return oldTrees.map((tree) => {
+            if (idToUpdate === tree._id) {
+              return response.data.update;
+            }
+            return tree;
+          });
+        });
+      }
+    } catch (err) {
+      setErrorState(err);
+      console.log("Error in updating the tree on the server", err);
+    }
   };
+  // router.put /ranger/markedtrees - find a tree with a specific id and update it
+  // const updateSingleTree = async (idToUpdate, updatedTree) => {
+  //   try {
+  //     const response = await axios.put(
+  //       `${API_BASE_URL}/ranger/markedtrees`,
+  //       updatedTree
+  //     );
+  //     console.log(response.data);
+  //     setAllTrees((oldTrees) => {
+  //       return oldTrees.map((tree) => {
+  //         if (idToUpdate === tree._id) {
+  //           return updatedTree;
+  //         }
+  //         return tree;
+  //       });
+  //     });
+  //   } catch (err) {
+  //     setErrorState(err)
+  //     console.log("Error in updating the tree on the server", err);
+  //   }
+  // };
   // router.delete /ranger/markedtrees find a tree with that id and delete it
   const deleteSingleTree = async (idToDelete) => {
     console.log(idToDelete);
