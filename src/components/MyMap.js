@@ -70,8 +70,8 @@ function MyMap({allTreeState}) {
                 radius={200}
                 stroke={false}
               />
-            {/* <FeatureGroup pathOptions={{ color: "purple" }}>
-              <Popup>Popup in FeatureGroup</Popup> */}
+            <FeatureGroup pathOptions={{ color: "purple" }}>
+              <Popup>Popup in FeatureGroup</Popup>
               <LayerGroup>
               {allTreeState.forEach((tree) => {
                 console.log(tree)
@@ -87,7 +87,7 @@ function MyMap({allTreeState}) {
                   radius={100}
                 />
               </LayerGroup>
-            {/* </FeatureGroup> */}
+            </FeatureGroup>
             </LayerGroup>
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Feature group">
