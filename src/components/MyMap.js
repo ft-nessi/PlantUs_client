@@ -13,6 +13,7 @@ import {
 
 //Don't forget to import the css
 import "leaflet/dist/leaflet.css";
+import { useNavigate } from "react-router-dom";
 
 // const ironhackLogo = new L.Icon({
 // 	iconUrl: 'https://i1.wp.com/www.alliron.vc/wp-content/uploads/2018/05/logo-ironhack-1.png',
@@ -25,10 +26,18 @@ const rectangle = [
   [51.5, -0.06],
 ];
 
-function MyMap({allTreeState}) {
+function MyMap({allTreeState = []}) {
   //Some random co-ordinate
   const position = [51.2, 10];
-  // console.log(allTreeState, Number(allTreeState[0].location.coordinatesX));
+  const navigate = useNavigate()
+
+  function handleCLick() {
+    navigate("/profile/markedTrees")
+  }
+
+  if (allTreeState.length) {
+    console.log(allTreeState, Number(allTreeState[0].location.coordinatesX))
+  }
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
@@ -44,12 +53,27 @@ function MyMap({allTreeState}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl position="topright">
-          <LayersControl.Overlay name="Marker with popup">
+          <LayersControl.Overlay name="Marked Trees">
+          <LayerGroup>
             <Marker position={center}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
+              {allTreeState.map((tree) => {
+                console.log(tree)
+                return (
+                  <div key={tree._id}>
+                  <Circle
+                  center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
+                  pathOptions={{ color: "green", fillColor: "green" }}
+                  radius={100}>
+                <Popup>{tree.treename}, {tree.kind} <br/>
+                <button onClick={handleCLick}>To marked trees</button></Popup>
+                  </Circle>
+                </div>)
+              })}
             </Marker>
+              </LayerGroup>
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Layer group with circles">
             <LayerGroup>
@@ -70,16 +94,19 @@ function MyMap({allTreeState}) {
                 radius={200}
                 stroke={false}
               />
-            <FeatureGroup pathOptions={{ color: "purple" }}>
-              <Popup>Popup in FeatureGroup</Popup>
+            <FeatureGroup>
               <LayerGroup>
-              {/* {allTreeState.forEach((tree) => {
+              {/* {allTreeState.map((tree) => {
                 console.log(tree)
-                return (<Circle
+                return (
+                  <div key={tree._id}>
+                <Popup>Tree</Popup>
+                  <Circle
                   center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
                   pathOptions={{ color: "green", fillColor: "green" }}
                   radius={100}
-                />)
+                />
+                </div>)
               })} */}
               <Circle
                   center={[50, 10]}

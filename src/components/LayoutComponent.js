@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../consts";
 import { AuthContext } from "../context/AuthProviderWrapper";
 
 export function LayoutComponent() {
-  const { user, removeUserFromContext } = useContext(AuthContext);
+  const { user, removeUserFromContext, isLoading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -36,7 +36,7 @@ export function LayoutComponent() {
         ) : (
           <>
             <NavLink to="/profile">Profile</NavLink>
-            <NavLink to="/profile/markedtrees">My Trees</NavLink>
+            <NavLink to="/profile/mytrees">My Trees</NavLink>
             <button onClick={logout}>Logout</button>
           </>
         )}

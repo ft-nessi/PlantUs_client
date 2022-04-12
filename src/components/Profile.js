@@ -8,19 +8,19 @@ import { API_BASE_URL } from "../consts";
 export function Profile() {
   const [allTreeState, setAllTreeState] = useState([]);
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, isLoading } = useContext(AuthContext);
   console.log(AuthContext);
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, isLoading, navigate]);
 
   useEffect(() => {
     async function fetchAllTrees() {
       try {
         const { data } = await axios.get(
-          `${API_BASE_URL}/ranger/markedtrees/all`
+          `${API_BASE_URL}/ranger/markedtrees`
         );
         console.log(data);
         if (!data.trees) return;

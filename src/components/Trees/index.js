@@ -8,8 +8,6 @@ import { SingleTree } from "./SingleTree";
 
 export function Trees() {
   const [allTrees, setAllTrees] = useState([]);
-  const [errorState, setErrorState] = useState()
-
 
   const navigate = useNavigate();
   const user = useContext(AuthContext);
@@ -25,7 +23,9 @@ export function Trees() {
     async function fetchAllTrees() {
       try {
         if (!user.isUser) {
-          const { data } = await axios.get(`${API_BASE_URL}/ranger/markedtrees`);
+          const { data } = await axios.get(
+            `${API_BASE_URL}/ranger/markedtrees`
+          );
           console.log(data);
           if (!data.trees) return;
           setAllTrees(data.trees);
@@ -42,32 +42,27 @@ export function Trees() {
       }
     }
     fetchAllTrees();
-  }, [navigate]);
+  }, [user, navigate]);
 
   // router.put /ranger/markedtrees - find a tree with a specific id and update it
   const updateSingleTree = async (idToUpdate, updatedTree) => {
-    try {
-      const response = await axios.put(
-        `${API_BASE_URL}/ranger/markedtrees`,
-        updatedTree
-      );
-      console.log(response.data);
-      setAllTrees((oldTrees) => {
-        return oldTrees.map((tree) => {
-          if (idToUpdate === tree._id) {
-            return updatedTree;
-          }
-          return tree;
-        });
+    const response = await axios.put(
+      `${API_BASE_URL}/ranger/markedtrees`,
+      updatedTree
+    );
+    console.log("Got", response.data);
+    setAllTrees((oldTrees) => {
+      return oldTrees.map((tree) => {
+        if (idToUpdate === tree._id) {
+          return response.data.update;
+        }
+        return tree;
       });
-    } catch (err) {
-      setErrorState(err)
-      console.log("Error in updating the tree on the server", err);
-    }
+    });
   };
   // router.delete /ranger/markedtrees find a tree with that id and delete it
   const deleteSingleTree = async (idToDelete) => {
-    console.log(idToDelete)
+    console.log(idToDelete);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/ranger/markedtrees/delete`,
@@ -88,17 +83,13 @@ export function Trees() {
     <div>
       {/* <AddNewTree setAllTrees={setAllTrees} /> */}
       {allTrees.map((tree) => (
-        <div>
         <SingleTree
           key={tree._id}
           tree={tree}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
-          errorState={errorState}
         />
-        </div>
       ))}
-
     </div>
   );
 }

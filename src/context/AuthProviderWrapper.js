@@ -1,9 +1,28 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { API_BASE_URL } from "../consts";
 
 export const AuthContext = createContext();
 
 export function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading ] = useState(true);
+  
+  useEffect( ()=> {
+
+    async function tryLogin () {
+      try {
+        const response = await axios.get(API_BASE_URL + "/user");
+        console.log(response.data);
+        addUserToContext(response.data.user);
+      } catch (err) {
+        
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    tryLogin();
+  })
 
   const addUserToContext = (newUser) => {
     if (user !== null) return;
@@ -17,7 +36,7 @@ export function AuthProviderWrapper(props) {
 
   return (
     <AuthContext.Provider
-      value={{ user, addUserToContext, removeUserFromContext }}
+      value={{ user, isLoading ,addUserToContext, removeUserFromContext }}
     >
       {props.children}
     </AuthContext.Provider>

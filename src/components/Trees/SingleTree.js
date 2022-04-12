@@ -4,16 +4,24 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProviderWrapper";
 
-export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorState }) {
+export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [formError, setFormError] = useState(null);
   const [formEdit, setFormEdit] = useState(tree);
 
   const user = useContext(AuthContext);
 
-  console.log(tree);
-  const handleUpdateTree = () => {
-    setIsEditing(false);
-    updateSingleTree(tree._id, formEdit);
+  // console.log(tree);
+  const handleUpdateTree = async (e) => {
+    e.preventDefault();
+
+    try {
+      await updateSingleTree(tree._id, formEdit);
+      setFormError(null);
+      setIsEditing(false);
+    } catch(e) {
+      setFormError(e);
+    }
   };
   const handleDeleteTree = () => {
     deleteSingleTree(tree._id);
@@ -61,6 +69,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
               [<label htmlFor="coordinatesX">X: </label>
                 <input
                 type="number"
+                step="0.01"
                 id="coordinatesX"
                 name="coordinatesX"
                 value={formEdit.location.coordinatesX} 
@@ -69,6 +78,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
               , <label htmlFor="coordinatesY">Y: </label>
               <input
                 type="number"
+                step="0.01"
                 name="coordinatesY"
                 id="coordinatesY"
                 value={formEdit.location.coordinatesY} 
@@ -76,7 +86,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
               />]
             </p>
             <button type="submit">Save</button>
-            {errorState && errorState}
+            {formError && formError.message}
           </div>
         </form>
       )}
@@ -91,7 +101,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorStat
               location: [{formEdit.location.coordinatesX}, {formEdit.location.coordinatesY}]
             </p>
             <button type="submit">Save</button>
-            {errorState && errorState}
+            {formError && formError.message}
           </div>
         </form>
       )}

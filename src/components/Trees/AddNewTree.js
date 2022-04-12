@@ -44,6 +44,7 @@ export function AddNewTree({ setAllTrees }) {
         <label htmlFor="coordinatesX">X: </label>
         <input
           type="number"
+          step="0.01"
           id="coordinatesX"
           name="coordinatesX"
           onChange={handleChange}
@@ -51,6 +52,7 @@ export function AddNewTree({ setAllTrees }) {
         <label htmlFor="coordinatesY">Y: </label>
         <input
           type="number"
+          step="0.01"
           id="coordinatesY"
           name="coordinatesY"
           onChange={handleChange}
