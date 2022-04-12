@@ -8,6 +8,8 @@ import { SingleTree } from "./SingleTree";
 
 export function Trees() {
   const [allTrees, setAllTrees] = useState([]);
+  const [errorState, setErrorState] = useState()
+
 
   const navigate = useNavigate();
   const user = useContext(AuthContext);
@@ -52,15 +54,17 @@ export function Trees() {
         });
       });
     } catch (err) {
+      setErrorState(err)
       console.log("Error in updating the tree on the server", err);
     }
   };
   // router.delete /ranger/markedtrees find a tree with that id and delete it
   const deleteSingleTree = async (idToDelete) => {
+    console.log(idToDelete)
     try {
-      const response = await axios.delete(
-        `${API_BASE_URL}/ranger/markedtrees`,
-        { id: idToDelete }
+      const response = await axios.post(
+        `${API_BASE_URL}/ranger/markedtrees/delete`,
+        { _id: idToDelete }
       );
       console.log(response.data);
       setAllTrees((oldTrees) => {
@@ -83,6 +87,7 @@ export function Trees() {
           tree={tree}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
+          errorState={errorState}
         />
         </div>
       ))}
