@@ -1,25 +1,81 @@
 // import { useContext } from "react";
 // import { AuthContext } from "../../context/AuthProviderWrapper";
 
+import { useState } from "react";
 
 export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [formEdit, setFormEdit] = useState(tree);
   // const user = useContext(AuthContext);
-  console.log(tree)
-  const handleUpdateTodo = () => {
-    updateSingleTree(tree._id, tree);
+  console.log(tree);
+  const handleUpdateTree = () => {
+    setIsEditing(false);
+    updateSingleTree(tree._id, formEdit);
   };
   const handleDeleteTree = () => {
     deleteSingleTree(tree._id);
   };
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    if (name === "coordinatesX" || name === "coordinatesY") {
+      setFormEdit({
+        ...formEdit,
+        location: { ...formEdit.location, [name]: event.target.value },
+      });
+    } else {
+      setFormEdit({ ...formEdit, [name]: event.target.value });
+    }
+  };
+
+  const handleEdit = (e) => {
+    setIsEditing(true);
+  };
+
   return (
     <div>
-      <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
-        <h2>Name:{tree.treename}</h2>
-        <p>Possible kinds: {tree.kind}</p>
-        <p>location: {tree.location.coordinatesX},{tree.location.coordinatesY}</p>
-        <button onClick={handleUpdateTodo}>Edit</button>
-        <button onClick={handleDeleteTree}>Delete!</button>
-      </div>
+      {!isEditing && (
+        <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
+          <h2>Name:{tree.treename}</h2>
+          <p>Possible kinds: {tree.kind}</p>
+          <p>
+            location: {tree.location.coordinatesX},{tree.location.coordinatesY}
+          </p>
+          <button onClick={handleEdit}>Edit</button>
+          <button onClick={handleDeleteTree}>Delete!</button>
+        </div>
+      )}
+      {isEditing && (
+        <form onSubmit={handleUpdateTree}>
+          <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
+            <h2>Name:{tree.treename}</h2>
+            <p>
+              Possible kinds:{" "}
+              <input type="text" name="kind" onChange={handleChange} value={formEdit.kind}/>
+            </p>
+            <p>
+              location:
+              [<label htmlFor="coordinatesX">X: </label>
+                <input
+                type="number"
+                id="coordinatesX"
+                name="coordinatesX"
+                value={formEdit.location.coordinatesX} 
+                onChange={handleChange}
+              />
+              , <label htmlFor="coordinatesY">Y: </label>
+              <input
+                type="number"
+                name="coordinatesY"
+                id="coordinatesY"
+                value={formEdit.location.coordinatesY} 
+                onChange={handleChange}
+              />]
+            </p>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }
