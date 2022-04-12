@@ -14,10 +14,7 @@ export function Login() {
       console.log("loginState", loginState);
       // console.log("Is axios using credentials:", axios.defaults.withCredentials)
 
-      const response = await axios.post(
-        API_BASE_URL + "/login/ranger",
-        loginState
-      );
+      const response = await axios.post(API_BASE_URL + "/login", loginState);
       console.log(response.data);
       addUserToContext(response.data.user);
       navigate("/profile");

@@ -1,16 +1,45 @@
-// import { useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-export function LayoutComponent() {
-  // const { user } = useContext(AuthContext);
+import axios from "axios";
+import { useContext } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../consts";
+import { AuthContext } from "../context/AuthProviderWrapper";
 
-  // const determineStyle = ({ isActive })
+export function LayoutComponent() {
+  const { user, removeUserFromContext } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/logout`);
+      console.log(response.data);
+      removeUserFromContext();
+      navigate("/");
+    } catch (err) {
+      console.log("There was an error logging out", err);
+    }
+  };
+
   return (
     <div className="container">
-      <nav className="site-nav">
-        <div className="navbar">
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Signup</NavLink>
-        </div>
+      <nav className={"navbar"}>
+        {!user ? (
+          <>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Signup</NavLink>
+          </>
+        ) : !user.isUser ? (
+          <>
+            <NavLink to="/profile">Profile</NavLink>
+            <NavLink to="/profile/markedtrees">Marked Trees</NavLink>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <NavLink to="/profile">Profile</NavLink>
+            <NavLink to="/profile/markedtrees">My Trees</NavLink>
+            <button onClick={logout}>Logout</button>
+          </>
+        )}
         <div className="nav-logo">
           {/* Logo is an actual React component */}
           {/* <Logo /> */}

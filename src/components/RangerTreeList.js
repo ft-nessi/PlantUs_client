@@ -7,7 +7,7 @@ export function RangerTreeList() {
     const navigate = useNavigate()
 
     function handleNavigateNewTree() {
-        navigate("/profile/markedTrees/newtree")
+        navigate("/profile/newtree")
     }
 
     return (
