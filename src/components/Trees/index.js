@@ -8,6 +8,8 @@ import { SingleTree } from "./SingleTree";
 
 export function Trees() {
   const [allTrees, setAllTrees] = useState([]);
+  const [errorState, setErrorState] = useState()
+
 
   const navigate = useNavigate();
   const user = useContext(AuthContext);
@@ -52,6 +54,7 @@ export function Trees() {
         });
       });
     } catch (err) {
+      setErrorState(err)
       console.log("Error in updating the tree on the server", err);
     }
   };
@@ -84,6 +87,7 @@ export function Trees() {
           tree={tree}
           updateSingleTree={updateSingleTree}
           deleteSingleTree={deleteSingleTree}
+          errorState={errorState}
         />
         </div>
       ))}

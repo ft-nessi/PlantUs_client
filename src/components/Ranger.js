@@ -1,26 +1,46 @@
 // import { useContext } from "react";
 // import { AuthContext } from "../context/AuthProviderWrapper";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyMap from "./MyMap";
+import { API_BASE_URL } from "../consts";
+
 
 
 
 export function Ranger(){
-  //we need to validate if User is a ranger or not
-  const navigate = useNavigate();
+  const [allTreeState, setAllTreeState] = useState([])
+    const navigate = useNavigate();
+    console.log("From Ranger", allTreeState)
 
   function handleNavigateTreelist() {
     navigate("/profile/markedTrees");
   }
+
+  useEffect(() => {
+    async function fetchAllTrees() {
+      try {
+        const { data } = await axios.get(`${API_BASE_URL}/ranger/markedtrees/all`);
+        console.log(data);
+        if (!data.trees) return;
+        setAllTreeState(data.trees);
+      } catch (err) {
+        console.log("There is an error");
+        console.error(err);
+        console.log(err.response.data);
+      }
+    }
+    fetchAllTrees();
+  }, [navigate]);
 
   return (
     <div>
       <h3>Ranger Profile</h3>
       <h2>Foto</h2>
       <h2>motive</h2>
-      <MyMap />
+      <MyMap allTreeState={allTreeState}/>
       <button onClick={handleNavigateTreelist}>To the Treeslist</button>
-      
     </div>
   );
 

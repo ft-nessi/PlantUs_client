@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 
-export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
+export function SingleTree({ tree, updateSingleTree, deleteSingleTree, errorState }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formEdit, setFormEdit] = useState(tree);
   // const user = useContext(AuthContext);
@@ -73,6 +73,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
               />]
             </p>
             <button type="submit">Save</button>
+            {errorState && errorState}
           </div>
         </form>
       )}
