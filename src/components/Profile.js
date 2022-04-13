@@ -6,6 +6,7 @@ import MyMap from "./MyMap";
 import { API_BASE_URL } from "../consts";
 
 export function Profile() {
+  const [isEditingMotivation, setIsEditingMotivation] = useState(false);
   const [allTreeState, setAllTreeState] = useState([]);
   const navigate = useNavigate();
   const { user, isLoading } = useContext(AuthContext);
@@ -34,11 +35,43 @@ export function Profile() {
     fetchAllTrees();
   }, [navigate]);
 
+  function handleCLick() {
+    setIsEditingMotivation(true);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    async function updateProfile() {
+      try{
+        const response = await axios.put(`${API_BASE_URL}/updateprofile`, )
+      }catch(err){
+
+      }
+    }
+    
+  }
+
   return (
     <div>
       {user && <h2>Welcome, {user.username}</h2>}
       <h3>Foto</h3>
-      <h3>motive</h3>
+      <div style={{ backgroundColor: "#FFEB99" }}>
+        <h3>What's your personal motivation?</h3>
+        <h5 style={{ color: "grey", fontStyle: "italic" }}>
+          "{!user.motivation && "Please fill in your personal motivation"}
+          {user.motivation && `${user.motivation}`}"
+        </h5>
+        {isEditingMotivation ? (
+          <div>
+          <input type="text" id="motivation" name="motivation" />
+            <button onSubmit={handleSubmit}>Save</button>
+          </div>
+        ) : (
+          <button onClick={handleCLick}>Edit</button>
+        )}
+      </div>
+
       <MyMap allTreeState={allTreeState} />
     </div>
   );

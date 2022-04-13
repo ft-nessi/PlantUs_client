@@ -49,7 +49,7 @@ function MyMap({ allTreeState = [] }) {
       }
     }
     handleHomeMap()
-  },)
+  },[])
 
 
   function handleCLick() {
