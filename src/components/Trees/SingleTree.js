@@ -110,11 +110,11 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
             </h2>
             <p>Possible kinds:{formEdit.kind}</p>
             <p>
-              location: [{formEdit.location.coordinatesX},
+              Location: [{formEdit.location.coordinatesX},
               {formEdit.location.coordinatesY}]
             </p>
             <p>
-              planted date:
+              Planted date:
               <input
                 type="date"
                 name="plantedDate"

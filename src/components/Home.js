@@ -3,9 +3,11 @@ import MyMap from "./MyMap";
 
 export function Home() {
   return (
-    <div>
+    <div className="home">
       <h1>Home Page</h1>
-      <MyMap />
+      <div className="map">
+        <MyMap />
+      </div>
       {/* <Trees /> */}
     </div>
   );
