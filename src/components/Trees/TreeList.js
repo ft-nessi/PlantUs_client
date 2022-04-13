@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trees } from ".";
+import { AuthContext } from "../../context/AuthProviderWrapper";
 // import { SingleTree } from "./Trees/SingleTree";
 
 
 export function TreeList() {
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate()
 
     function handleNavigateNewTree() {
@@ -12,8 +15,8 @@ export function TreeList() {
 
     return (
         <div>
-            <h1>This are your marked trees</h1>
-            <button onClick={handleNavigateNewTree}>Add a new Tree!</button>
+            <h1>This are your {!user.isUser && ("marked") } trees</h1>
+            {!user.isUser && (<button onClick={handleNavigateNewTree}>Add a new Tree!</button>)}
             <Trees />
         </div>
     )

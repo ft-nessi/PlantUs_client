@@ -1,132 +1,225 @@
 import {
-  Circle,
-  FeatureGroup,
   LayerGroup,
   LayersControl,
   MapContainer,
   Marker,
   Popup,
-  Rectangle,
   TileLayer,
 } from "react-leaflet";
-// import * as L from "leaflet";
+import * as L from "leaflet";
 
 //Don't forget to import the css
 import "leaflet/dist/leaflet.css";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthProviderWrapper";
+import { updateTree } from "./Trees/index";
+import axios from "axios";
+import { API_BASE_URL } from "../consts";
 
-// const ironhackLogo = new L.Icon({
-// 	iconUrl: 'https://i1.wp.com/www.alliron.vc/wp-content/uploads/2018/05/logo-ironhack-1.png',
-// 	iconSize: [68, 65],
-// });
+function getIcon(_iconSize, ownerId) {
+  if (ownerId) {
+    return L.icon({
+      iconUrl: require("../Icons/Favicon.plantedTree.png"),
+      iconSize: _iconSize,
+    });
+  } else {
+    return L.icon({
+      iconUrl: require("../Icons/Favicon.markedTree.png"),
+      iconSize: _iconSize,
+    });
+  }
+}
 
-const center = [51.505, -0.09];
-const rectangle = [
-  [51.49, -0.08],
-  [51.5, -0.06],
-];
-
-function MyMap({allTreeState = []}) {
+function MyMap({ allTreeState = [] }) {
   //Some random co-ordinate
+  const [treesHomepage, setTreesHomepage] = useState([]);
   const position = [51.2, 10];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function handleHomeMap() {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/alltrees`);
+        setTreesHomepage(response.data.trees);
+      } catch (err) {
+        console.log("Error in updating the tree on the server", err);
+      }
+    }
+    handleHomeMap();
+  }, []);
 
   function handleCLick() {
-    navigate("/profile/markedTrees")
+    navigate("/profile/markedTrees");
+  }
+
+  function getHandleToAddIdFunction(tree) {
+    return async function handleToAddId(e) {
+      e.preventDefault();
+      await updateTree({ ...tree, ownerId: user._id }, user, () => {});
+      alert("New tree was added to myTrees");
+      navigate("/profile/mytrees");
+    };
   }
 
   if (allTreeState.length) {
-    console.log(allTreeState, Number(allTreeState[0].location.coordinatesX))
+    // console.log(allTreeState, Number(allTreeState[0].location.coordinatesX));
   }
+
+  const isLoggedIn = Boolean(user);
+  const isOwner = isLoggedIn && user.isUser;
+  const isRanger = isLoggedIn && !user.isUser;
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
     <div>
       <MapContainer
-        style={{ width: "50vw", height: "30vh" }}
+        style={{ width: "100vw", height: "60vh" }}
         center={position}
         zoom={3}
         scrollWheelZoom={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | <a href="https://www.flaticon.com/free-icons/add" title="add icons">Add icons created by Those Icons - Flaticon</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="Marked Trees">
-          <LayerGroup>
-            <Marker position={center}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-              {allTreeState.map((tree) => {
-                console.log(tree)
-                return (
-                  <div key={tree._id}>
-                  <Circle
-                  center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}>
-                <Popup>{tree.treename}, {tree.kind} <br/>
-                <button onClick={handleCLick}>To marked trees</button></Popup>
-                  </Circle>
-                </div>)
-              })}
-            </Marker>
-              </LayerGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked name="Layer group with circles">
-            <LayerGroup>
-              <Circle
-                center={[51.2, 10.4]}
-                pathOptions={{ fillColor: "blue" }}
-                radius={200}
-              />
-              <Circle
-                center={[51.2, 10.2]}
-                pathOptions={{ fillColor: "red" }}
-                radius={100}
-                // stroke={false}
-              />
-              <Circle
-                center={[51.2, 10.21]}
-                pathOptions={{ fillColor: "red" }}
-                radius={200}
-                stroke={false}
-              />
-            <FeatureGroup>
+        {/* <a href="https://www.flaticon.com/free-icons/add" title="add icons">Add icons created by Those Icons - Flaticon</a> */}
+        {!isLoggedIn &&
+          treesHomepage.map((tree) => {
+            return (
+              <div key={tree._id}>
+                <Marker
+                  position={[
+                    Number(tree.location.coordinatesX),
+                    Number(tree.location.coordinatesY),
+                  ]}
+                  icon={getIcon(20, tree.ownerId)}
+                >
+                  <Popup>
+                    <p>
+                      {tree.ownerId && "This tree was planted"}
+                      {!tree.ownerId && "This tree needs to be planted"}
+                    </p>
+                  </Popup>
+                </Marker>
+              </div>
+            );
+          })}
+        {isLoggedIn && (
+          <LayersControl position="topright">
+            <LayersControl.Overlay checked name="All Trees">
               <LayerGroup>
-              {/* {allTreeState.map((tree) => {
-                console.log(tree)
-                return (
-                  <div key={tree._id}>
-                <Popup>Tree</Popup>
-                  <Circle
-                  center={[Number(tree.location.coordinatesX), Number(tree.location.coordinatesY)]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}
-                />
-                </div>)
-              })} */}
-              <Circle
-                  center={[50, 10]}
-                  pathOptions={{ color: "green", fillColor: "green" }}
-                  radius={100}
-                />
+                {isLoggedIn &&
+                  allTreeState.map((tree) => {
+                    return (
+                      <div key={tree._id}>
+                        <Marker
+                          position={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          icon={getIcon(20, tree.ownerId)}
+                        >
+                          <Popup>
+                            Treename: {tree.treename}
+                            <br />
+                            Kind:{tree.kind}
+                            <br />
+                            {tree.plantedDate && (`Planted Date: ${tree.plantedDate}`)}
+                            {isOwner && !tree.ownerId && (
+                              <button onClick={getHandleToAddIdFunction(tree)}>
+                                Add to myTrees
+                              </button>
+                            )}
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  })}
+                {!isLoggedIn &&
+                  treesHomepage.map((tree) => {
+                    return (
+                      <div key={tree._id}>
+                        <Marker
+                          position={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          icon={getIcon(20, tree.ownerId)}
+                        >
+                          <Popup>
+                            <p>
+                              {tree.ownerId && "This tree was planted"}
+                              {!tree.ownerId && "This tree needs to be planted"}
+                            </p>
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  })}
               </LayerGroup>
-            </FeatureGroup>
-            </LayerGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Feature group">
-            <FeatureGroup pathOptions={{ color: "purple" }}>
-              <Popup>Popup in FeatureGroup</Popup>
-              <Circle center={[51.2, 10.4]} radius={200} />
-              <Popup>Hey</Popup>
-              <Circle center={[51.2, 10.6]} radius={200} />
-              <Rectangle bounds={rectangle} />
-            </FeatureGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
+            </LayersControl.Overlay>
+            <LayersControl.Overlay name="Trees to be planted">
+              <LayerGroup>
+                {allTreeState.map((tree) => {
+                  if (isOwner && !tree.ownerId) {
+                    return (
+                      <div key={tree._id}>
+                        <Marker
+                          position={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          icon={getIcon(20, tree.ownerId)}
+                        >
+                          <Popup>
+                            Treename: {tree.treename}
+                            <br />
+                            Kind:{tree.kind}
+                            <br />
+                            Planted Date: {tree.plantedDate}
+                            <br />
+                            <button onClick={getHandleToAddIdFunction(tree)}>
+                              Add to myTrees
+                            </button>
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  }
+                })}
+              </LayerGroup>
+            </LayersControl.Overlay>
+            <LayersControl.Overlay name="My planted Trees">
+              <LayerGroup>
+                {allTreeState.map((tree) => {
+                  if (isOwner && tree.ownerId) {
+                    return (
+                      <div key={tree._id}>
+                        <Marker
+                          position={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          icon={getIcon(20, tree.ownerId)}
+                        >
+                          <Popup>
+                            Treename: {tree.treename}
+                            <br />
+                            Kind:{tree.kind}
+                            <br />
+                            {tree.plantedDate && (`Planted Date: ${tree.plantedDate}`)}
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  }
+                })}
+              </LayerGroup>
+            </LayersControl.Overlay>
+          </LayersControl>
+        )}
       </MapContainer>
     </div>
   );
