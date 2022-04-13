@@ -50,9 +50,9 @@ function MyMap({ allTreeState = [] }) {
     handleHomeMap();
   }, []);
 
-  function handleCLick() {
-    navigate("/profile/markedTrees");
-  }
+  // function handleCLick() {
+  //   navigate("/profile/markedTrees");
+  // }
 
   function getHandleToAddIdFunction(tree) {
     return async function handleToAddId(e) {
@@ -137,30 +137,9 @@ function MyMap({ allTreeState = [] }) {
                       </div>
                     );
                   })}
-                {!isLoggedIn &&
-                  treesHomepage.map((tree) => {
-                    return (
-                      <div key={tree._id}>
-                        <Marker
-                          position={[
-                            Number(tree.location.coordinatesX),
-                            Number(tree.location.coordinatesY),
-                          ]}
-                          icon={getIcon(20, tree.ownerId)}
-                        >
-                          <Popup>
-                            <p>
-                              {tree.ownerId && "This tree was planted"}
-                              {!tree.ownerId && "This tree needs to be planted"}
-                            </p>
-                          </Popup>
-                        </Marker>
-                      </div>
-                    );
-                  })}
               </LayerGroup>
             </LayersControl.Overlay>
-            <LayersControl.Overlay name="Trees to be planted">
+            <LayersControl.Overlay name={isOwner ? ("Trees to be planted") : ("Marked Trees")}>
               <LayerGroup>
                 {allTreeState.map((tree) => {
                   if (isOwner && !tree.ownerId) {
@@ -188,10 +167,29 @@ function MyMap({ allTreeState = [] }) {
                       </div>
                     );
                   }
+                  if (!tree.ownerId && (tree.rangerId === user._id)) {
+                    return (
+                      <div key={tree._id}>
+                        <Marker
+                          position={[
+                            Number(tree.location.coordinatesX),
+                            Number(tree.location.coordinatesY),
+                          ]}
+                          icon={getIcon(20, tree.ownerId)}
+                        >
+                          <Popup>
+                            Treename: {tree.treename}
+                            <br />
+                            Kind:{tree.kind}
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  }
                 })}
               </LayerGroup>
             </LayersControl.Overlay>
-            <LayersControl.Overlay name="My planted Trees">
+            {isOwner && (<LayersControl.Overlay name="My planted Trees">
               <LayerGroup>
                 {allTreeState.map((tree) => {
                   if (isOwner && tree.ownerId) {
@@ -217,7 +215,7 @@ function MyMap({ allTreeState = [] }) {
                   }
                 })}
               </LayerGroup>
-            </LayersControl.Overlay>
+            </LayersControl.Overlay>)}
           </LayersControl>
         )}
       </MapContainer>
