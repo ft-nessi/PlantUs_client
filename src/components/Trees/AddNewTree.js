@@ -30,7 +30,7 @@ export function AddNewTree({ setAllTrees }) {
       //   return [...oldTrees, response.data.tree];
       // });
       setTreeState({});
-      navigate('/profile/markedtrees');
+      navigate("/profile/markedtrees");
     } catch (err) {
       console.log("Error in updating the tree list on the server!", err);
     }
@@ -39,9 +39,16 @@ export function AddNewTree({ setAllTrees }) {
   return (
     <div>
       <form onSubmit={handleSubmitTree}>
-        <label htmlFor="kind">Kind: </label>
-        <input type="text" id="kind" name="kind" onChange={handleChange} />
-        <label htmlFor="coordinatesX">X: </label>
+          <label htmlFor="kind">Kind: </label>
+          <select name="kind" id="kind" onChange={handleChange}>
+            <option value="">Please select</option>
+            <option value="Maple tree">Maple tree</option>
+            <option value="Oak">Oak</option>
+            <option value="Pine">Pine</option>
+            <option value="Spruce">Spruce</option>
+          </select>
+          <br/>
+        <label htmlFor="coordinatesX">X-coordinate: </label>
         <input
           type="number"
           step="0.01"
@@ -49,7 +56,8 @@ export function AddNewTree({ setAllTrees }) {
           name="coordinatesX"
           onChange={handleChange}
         />
-        <label htmlFor="coordinatesY">Y: </label>
+        <br/>
+        <label htmlFor="coordinatesY">Y-coordinate: </label>
         <input
           type="number"
           step="0.01"

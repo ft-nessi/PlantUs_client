@@ -63,7 +63,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
             <p>
               Possible kinds:
               <select name="kind" onChange={handleChange}>
-                <option value="Please select">Please select</option>
+                <option value={tree.kind}>{tree.kind}</option>
                 <option value="Maple tree">Maple tree</option>
                 <option value="Oak">Oak</option>
                 <option value="Pine">Pine</option>
