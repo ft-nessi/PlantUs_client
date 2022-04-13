@@ -19,7 +19,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
       await updateSingleTree(tree._id, formEdit);
       setFormError(null);
       setIsEditing(false);
-    } catch(e) {
+    } catch (e) {
       setFormError(e);
     }
   };
@@ -61,16 +61,17 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
           <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
             <h2>Name:{tree.treename}</h2>
             <p>
-              Possible kinds:{" "}
-              <input
-                type="text"
-                name="kind"
-                onChange={handleChange}
-                value={formEdit.kind}
-              />
+              Possible kinds:
+              <select name="kind">
+                <option value="Please select">Please select</option>
+                <option value="Maple tree">Maple tree</option>
+                <option value="Oak">Oak</option>
+                <option value="Pine">Pine</option>
+                <option value="Spruce">Spruce</option>
+              </select>
             </p>
             <p>
-              location: [<label htmlFor="coordinatesX">X: </label>
+              Location: [<label htmlFor="coordinatesX">X: </label>
               <input
                 type="number"
                 step="0.01"
@@ -110,11 +111,11 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
             </h2>
             <p>Possible kinds:{formEdit.kind}</p>
             <p>
-              location: [{formEdit.location.coordinatesX},
+              Location: [{formEdit.location.coordinatesX},
               {formEdit.location.coordinatesY}]
             </p>
             <p>
-              planted date:
+              Planted date:
               <input
                 type="date"
                 name="plantedDate"
