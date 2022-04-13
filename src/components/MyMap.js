@@ -69,7 +69,6 @@ function MyMap({ allTreeState = [] }) {
 
   const isLoggedIn = Boolean(user);
   const isOwner = isLoggedIn && user.isUser;
-  const isRanger = isLoggedIn && !user.isUser;
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (

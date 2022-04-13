@@ -8,9 +8,10 @@ import { API_BASE_URL } from "../consts";
 export function Profile() {
   const [isEditingMotivation, setIsEditingMotivation] = useState(false);
   const [allTreeState, setAllTreeState] = useState([]);
-  const navigate = useNavigate();
   const { user, isLoading } = useContext(AuthContext);
-  console.log(AuthContext);
+  const [userEditState, setUserEditState] = useState(user)
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (!user && !isLoading) {
       navigate("/");
@@ -35,18 +36,29 @@ export function Profile() {
     fetchAllTrees();
   }, [navigate]);
 
+  const handleChangeMotivation = (event) => {
+    setUserEditState({...userEditState, [event.target.name]: event.target.value },
+      );
+      
+   
+  };
+
   function handleCLick() {
     setIsEditingMotivation(true);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    async function updateProfile() {
+      setIsEditingMotivation(false);
       try {
-        const response = await axios.put(`${API_BASE_URL}/updateprofile`);
-      } catch (err) {}
+        const response = await axios.put(`${API_BASE_URL}/updatemotivation`, userEditState);
+        console.log(userEditState.motivation, response.data.updatedUser);
+        setUserEditState(response.data.updatedUser)
+        console.log(user)
+      } catch (err) {
+        console.log("Error in updating the tree on the server", err);
     }
+
   }
 
   return (
@@ -55,18 +67,15 @@ export function Profile() {
       <h3>Foto</h3>
       <div style={{ backgroundColor: "#FFEB99" }}>
         <h3>What's your personal motivation?</h3>
-        {user && (
-          <h5 style={{ color: "grey", fontStyle: "italic" }}>
-            "{!user.motivation ? "Please fill in your personal motivation" : user.motivation }
-          </h5>
-        )}
         {isEditingMotivation ? (
           <div>
-            <input type="text" id="motivation" name="motivation" />
-            <button onSubmit={handleSubmit}>Save</button>
+            <input type="text" id="motivation" name="motivation" onChange={handleChangeMotivation}/>
+            <button onClick={handleSubmit}>Save</button>
           </div>
-        ) : (
-          <button onClick={handleCLick}>Edit</button>
+        ) : (<><h5 style={{ color: "grey", fontStyle: "italic" }}>
+            "{!userEditState.motivation ? ("Please fill in your personal motivation") : userEditState.motivation }"
+          </h5>
+          <button onClick={handleCLick}>Edit</button></>
         )}
       </div>
 
