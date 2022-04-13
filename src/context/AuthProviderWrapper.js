@@ -22,7 +22,7 @@ export function AuthProviderWrapper(props) {
       }
     }
     tryLogin();
-  })
+  },[])
 
   const addUserToContext = (newUser) => {
     if (user !== null) return;

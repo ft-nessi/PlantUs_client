@@ -43,13 +43,10 @@ export function Profile() {
     event.preventDefault();
 
     async function updateProfile() {
-      try{
-        const response = await axios.put(`${API_BASE_URL}/updateprofile`, )
-      }catch(err){
-
-      }
+      try {
+        const response = await axios.put(`${API_BASE_URL}/updateprofile`);
+      } catch (err) {}
     }
-    
   }
 
   return (
@@ -58,13 +55,14 @@ export function Profile() {
       <h3>Foto</h3>
       <div style={{ backgroundColor: "#FFEB99" }}>
         <h3>What's your personal motivation?</h3>
-        <h5 style={{ color: "grey", fontStyle: "italic" }}>
-          "{!user.motivation && "Please fill in your personal motivation"}
-          {user.motivation && `${user.motivation}`}"
-        </h5>
+        {user && (
+          <h5 style={{ color: "grey", fontStyle: "italic" }}>
+            "{!user.motivation ? "Please fill in your personal motivation" : user.motivation }
+          </h5>
+        )}
         {isEditingMotivation ? (
           <div>
-          <input type="text" id="motivation" name="motivation" />
+            <input type="text" id="motivation" name="motivation" />
             <button onSubmit={handleSubmit}>Save</button>
           </div>
         ) : (
