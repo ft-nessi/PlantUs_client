@@ -13,9 +13,14 @@ body {
 .navbar-container {
   width: 100vw;
   height: 8vh;
-  background-color: #255957;
+  background-color: white;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
   align-items: center;
 }
 
@@ -24,11 +29,18 @@ body {
   height: 82vh;
 }
 
+.logo {
+  margin: 0;
+  position: absolute;
+  width: 100px;
+  height: auto;
+  left: 0;
+}
+
 .auth {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  /* position: absolute; */
 }
 
 .auth > button {
@@ -41,20 +53,13 @@ body {
   justify-content: flex-end;
   align-items: center;
   margin: 0 2em;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .home {
   width: min(100%, 85vw);
-  margin-inline: auto;
+  /* margin-inline: auto; */
 }
-
-/* .container-form { Sign-up/login
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 20vh;
-} */
 
 .login-signup {
   padding: 4vw;
@@ -73,10 +78,18 @@ body {
 .footer-container {
   width: 100vw;
   height: 10vh;
-  background-color: #255957;
+  background-color: darkslategray;
+  /* margin: 3em; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-container > p {
   color: white;
-  font-size: px;
+  font-size: 8px;
+}
+
+.logo-footer {
+  width: 2em;
 }
