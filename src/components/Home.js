@@ -4,7 +4,12 @@ import MyMap from "./MyMap";
 export function Home() {
   return (
     <div className="home">
-      <h1>Home Page</h1>
+      <h1>Plant a tree with us!</h1>
+      <h3>
+        Help us with planting one tree at a time. <br /> Join our
+        PlantUs-Community and sign up today!
+        <br />
+      </h3>
       <div className="map">
         <MyMap />
       </div>

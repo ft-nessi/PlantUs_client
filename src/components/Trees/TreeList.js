@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trees } from ".";
+import { Trees } from "./index";
 import { AuthContext } from "../../context/AuthProviderWrapper";
 // import { SingleTree } from "./Trees/SingleTree";
 
@@ -14,10 +14,19 @@ export function TreeList() {
     }
 
     return (
-        <div className="treeslist-outlet">
-            <h1>This are your {!user.isUser && ("marked") } trees</h1>
-            {!user.isUser && (<button onClick={handleNavigateNewTree}>Add a new Tree!</button>)}
-            <Trees />
+      <div className="treelist-outlet">
+        <div className="treelist-text">
+          <h2>
+            Here you'll find all the trees you've already{" "}
+            {!user.isUser && "marked"}.
+          </h2>
+          {!user.isUser && (
+            <button onClick={handleNavigateNewTree}>Add a new Tree!</button>
+          )}
         </div>
-    )
+        <div className="trees">
+          <Trees />
+        </div>
+      </div>
+    );
 }

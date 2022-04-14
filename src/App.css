@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  background: #c2e7d9;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  overflow-x: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +15,7 @@ body {
 .navbar-container {
   width: 100vw;
   height: 9vh;
-  background-color: white;
+  background-color: #255957;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -47,7 +46,7 @@ body {
 
 .auth > button {
   min-width: 8vw;
-  height: 3.5vh;
+  height: 2.6vh;
   text-decoration: none;
   border-width: 0.05em;
   border-color: #255957;
@@ -56,7 +55,7 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 2em 0 0;
-  border-radius: 0.8em;
+  border-radius: 0.3em;
 }
 
 .auth > a {
@@ -65,8 +64,21 @@ body {
 }
 
 .home {
-  width: min(100%, 85vw);
-  /* margin-inline: auto; */
+  width: 100vw;
+  margin-inline: auto;
+}
+
+.home > h1 {
+  color: #255957 !important;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0 0 0;
+}
+
+.home > h3 {
+  color: #255957 !important;
+  text-align: center;
+  padding: 1em;
 }
 
 .login-signup {
@@ -84,15 +96,168 @@ body {
   text-decoration-color: white;
 }
 
-.treeslist-outlet > h1 {
+.welcome {
+  padding: 0 2em;
+  display: flex;
+  flex-direction: row;
+}
+.welcome-section {
+  color: darkslategray;
+  display: inline;
+  width: 50vw;
+}
+
+.motivation {
+  color: darkslategray;
+  padding: 2em 2em 0 2em;
+  display: inline-block;
+  width: 50vw;
+}
+
+.welcome-trees > h3 {
+  color: darkslategray;
+  padding: 0 2em;
+}
+
+.profile-form > button {
+  min-width: 8vw;
+  height: 2.6vh;
+  text-decoration: none;
+  border-width: 0.05em;
+  border-color: #255957;
+  color: #255957;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2em 0 0;
+  border-radius: 0.2em;
+}
+
+.motivation > h4 {
+  margin: 1em 0;
+}
+
+.motivation > h5 {
+  margin: 1em 0;
+}
+
+.motivation-save-btn {
+  min-width: 8vw;
+  height: 2.6vh;
+  text-decoration: none;
+  border-width: 0.05em;
+  border-color: #255957;
+  color: #255957;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2em 0 0;
+  border-radius: 0.2em;
+}
+
+.motivation > button {
+  min-width: 8vw;
+  height: 2.6vh;
+  text-decoration: none;
+  border-width: 0.05em;
+  border-color: #255957;
+  color: #255957;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2em 0 0;
+  border-radius: 0.2em;
+}
+
+.mymap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trees {
+  /* background: #255957; */
+  padding: 0 2em;
+  line-height: 1.5em;
+}
+
+.tree-entry > h4, p {
+  padding: 0;
   margin: 0;
-  padding: 2vw;
+}
+
+.treelist-text > h2 {
+  color: darkslategray;
+  padding: 1em 2em;
+  line-height: 1.5em;
+}
+
+.treelist-text > button {
+  min-width: 8vw;
+  height: 2.6vh;
+  text-decoration: none;
+  border-width: 0.05em;
+  border-color: #255957;
+  color: #255957;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2em 0 0;
+  border-radius: 0.2em;
+}
+
+.newtree-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.newtree-description {
+  color: darkslategray !important;
+  padding: 2em;
+  line-height: 1.5em;
+}
+.newtree {
+  display: flex;
+  flex-direction: column;
+  color: #255957;
+  padding-top: 2em;
+}
+
+.newtree-form {
+  width: 40vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2em;
+  line-height: 1.5em;
+  color: darkslategray !important;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.newtree > button {
+  width: 10vw;
+  height: 2.6vh;
+  text-decoration: none;
+  border-width: 0.05em;
+  border-color: #255957;
+  color: #255957;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 2em 0 0;
+  border-radius: 0.2em;
 }
 
 .footer-container {
   width: 100vw;
   height: 10vh;
-  background-color: darkslategray;
+  background-color: #255957;
   display: flex;
   align-items: center;
   flex-direction: row;

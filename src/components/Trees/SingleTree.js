@@ -46,24 +46,39 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
   return (
     <div>
       {!isEditing && (
-        <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
-          <h2>Name:  {tree.treename}</h2>
-          <p>Kind:  {tree.kind}</p>
+        <div
+          className="tree-entry"
+          style={{
+            backgroundColor: tree.ownerId ? "#ffeb99" : "#C2E7D9",
+          }}
+        >
+          <h4>Name: {tree.treename}</h4>
+          <p>Kind: {tree.kind}</p>
           <p>
-            Location: [ {tree.location.coordinatesX} , {tree.location.coordinatesY} ]
+            Location: [ {tree.location.coordinatesX} ,
+            {tree.location.coordinatesY} ]
           </p>
-            Planted Date : {!tree.plantedDate ? (<span style={{fontStyle: "italic"}} >"Please edit the planted Date"</span>) : tree.plantedDate}
-            <br/>
+          Planted Date :{" "}
+          {!tree.plantedDate ? (
+            <span style={{ fontStyle: "italic" }}>
+              "Please edit the planted Date"
+            </span>
+          ) : (
+            tree.plantedDate
+          )}
+          <br />
           <button onClick={handleEdit}>Edit</button>
           {!user.isUser && <button onClick={handleDeleteTree}>Delete!</button>}
         </div>
       )}
       {isEditing && !user.isUser && (
         <form onSubmit={handleUpdateTree}>
-          <div style={{ backgroundColor: tree.ownerId ? "green" : "grey" }}>
-            <h2>Name:  {tree.treename}</h2>
+          <div
+            style={{ backgroundColor: tree.ownerId ? "#ffeb99" : "#C2E7D9" }}
+          >
+            <h4>Name: {tree.treename}</h4>
             <p>
-              Kind: 
+              Kind:
               <select name="kind" onChange={handleChange}>
                 <option value={tree.kind}>{tree.kind}</option>
                 <option value="Maple tree">Maple tree</option>
@@ -81,7 +96,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
                 name="coordinatesX"
                 value={formEdit.location.coordinatesX}
                 onChange={handleChange}
-              /> 
+              />
               , <label htmlFor="coordinatesY">Y: </label>
               <input
                 type="number"
@@ -91,7 +106,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
                 value={formEdit.location.coordinatesY}
                 onChange={handleChange}
               />
-               ]
+              ]
             </p>
 
             <button type="submit">Save</button>
@@ -101,22 +116,24 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
       )}
       {isEditing && user.isUser && (
         <form onSubmit={handleUpdateTree}>
-          <div style={{ backgroundColor: "green" }}>
-            <h2>
-              Name:  
+          <div style={{ backgroundColor: "#ffeb99" }}>
+            <h4>
+              Name:
               <input
                 type="text"
                 name="treename"
                 onChange={handleChange}
                 value={formEdit.treename}
               />
-            </h2>
-            <p>Kind:  {formEdit.kind}</p>
+            </h4>
+            <p>Kind: {formEdit.kind}</p>
             <p>
-              Location: [ {formEdit.location.coordinatesX} , {formEdit.location.coordinatesY} ]
+              Location: [ {formEdit.location.coordinatesX} ,{" "}
+              {formEdit.location.coordinatesY} ]
             </p>
             <p>
-              Planted date:  <input
+              Planted date:{" "}
+              <input
                 type="date"
                 name="plantedDate"
                 onChange={handleChange}

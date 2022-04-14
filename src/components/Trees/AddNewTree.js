@@ -37,9 +37,18 @@ export function AddNewTree({ setAllTrees }) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmitTree}>
-          <label htmlFor="kind">Kind: </label>
+    <div className="newtree-container">
+      <div className="newtree-description">
+        <h2>
+          Please enter the kind of the tree and the X- and Y-coordinates to add
+          a tree in the map.
+        </h2>
+      </div>
+      <div className="newtree-form-kind">
+        <form className="newtree-form" onSubmit={handleSubmitTree}>
+          <label className="label" htmlFor="kind">
+            Kind:{" "}
+          </label>
           <select name="kind" id="kind" onChange={handleChange}>
             <option value="">Please select</option>
             <option value="Maple tree">Maple tree</option>
@@ -47,26 +56,37 @@ export function AddNewTree({ setAllTrees }) {
             <option value="Pine">Pine</option>
             <option value="Spruce">Spruce</option>
           </select>
-          <br/>
-        <label htmlFor="coordinatesX">X-coordinate: </label>
-        <input
-          type="number"
-          step="0.01"
-          id="coordinatesX"
-          name="coordinatesX"
-          onChange={handleChange}
-        />
-        <br/>
-        <label htmlFor="coordinatesY">Y-coordinate: </label>
-        <input
-          type="number"
-          step="0.01"
-          id="coordinatesY"
-          name="coordinatesY"
-          onChange={handleChange}
-        />
-        <button type="submit">Add new tree!</button>
-      </form>
+          <br />
+
+          <div className="newtree-form-x">
+            <label className="label" htmlFor="coordinatesX">
+              X-coordinate:{" "}
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              id="coordinatesX"
+              name="coordinatesX"
+              onChange={handleChange}
+            />
+            <br />
+          </div>
+          <div className="newtree-form-y">
+            <label className="label" htmlFor="coordinatesY">
+              Y-coordinate:{" "}
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              id="coordinatesY"
+              name="coordinatesY"
+              onChange={handleChange}
+            />
+            {/* <br /> */}
+          </div>
+          <button type="submit">Add new tree!</button>
+        </form>
+      </div>
     </div>
   );
 }
