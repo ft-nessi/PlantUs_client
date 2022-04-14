@@ -10,10 +10,12 @@ import { AddNewTree } from "./components/Trees/AddNewTree";
 import { TreeList } from "./components/Trees/TreeList";
 import { Profile } from "./components/Profile";
 import { AuthContext } from "./context/AuthProviderWrapper"
+import { getCsrfToken } from "./consts";
+
 
 export default function App() {
   useEffect(() => {
-    // getCrsfToken();
+    getCsrfToken();
   }, []);
 
   const { user, isLoading } = useContext(AuthContext);
