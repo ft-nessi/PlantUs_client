@@ -123,7 +123,7 @@ export function Trees() {
     <div>
       {/* <AddNewTree setAllTrees={setAllTrees} /> */}
       {allTrees.map((tree) => (
-        <div>
+        <div className="single-tree">
           <SingleTree
             key={tree._id}
             tree={tree}

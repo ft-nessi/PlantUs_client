@@ -73,9 +73,9 @@ function MyMap({ allTreeState = [] }) {
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
-    <div>
+    <div className="mymap">
       <MapContainer
-        style={{ width: "100vw", height: "60vh" }}
+        style={{ width: "91vw", height: "50vh", padding: "1em", display: "flex", alignItems: "center" }}
         center={position}
         zoom={3}
         scrollWheelZoom={false}

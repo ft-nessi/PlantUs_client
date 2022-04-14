@@ -71,13 +71,9 @@ export function Profile() {
     imageFormData.append("imageUrl", image);
 
     async function sendImage() {
-      let response = await axios.post(
-        `${API_BASE_URL}/upload`,
-        imageFormData,
-        {
-          withCredentials: true,
-        }
-      );
+      let response = await axios.post(`${API_BASE_URL}/upload`, imageFormData, {
+        withCredentials: true,
+      });
       console.log("saved", response.data);
       setUserEditState(response.data.updatedUser);
     }
@@ -103,53 +99,67 @@ export function Profile() {
   }
 
   return (
-    <div>
-      {user && <h2>Welcome, {user.username}</h2>}
-      <h3>Foto</h3>
-      <div>
-        {userEditState.imageUrl ? (
-          <img
-            src={userEditState.imageUrl}
-            alt="profile pic"
-            style={{ height: "100px" }}
-          />
-        ) : null}
-      </div>
-      <form
-        method="POST"
-        onSubmit={handleUserImage}
-        encType="multipart/form-data"
-      >
-        <input type="file" name="imageUrl" accept="image/png, image/jpg" />
-        <button type="submit">Submit</button>
-      </form>
-      <div style={{ backgroundColor: "#FFEB99" }}>
-        <h3>What's your personal motivation?</h3>
-        {isEditingMotivation ? (
-          <div>
-            <input
-              type="text"
-              id="motivation"
-              name="motivation"
-              onChange={handleChangeMotivation}
+    <div className="profile">
+      <div className="welcome">
+        <div className="welcome-section">
+          {user && <h2>Welcome, {user.username}!</h2>}
+          <h3>Foto</h3>
+          {userEditState.imageUrl ? (
+            <img
+              src={userEditState.imageUrl}
+              alt="profile pic"
+              style={{ height: "100px" }}
             />
-            <button onClick={handleSubmit}>Save</button>
-          </div>
-        ) : (
-          <>
-            <h5 style={{ color: "grey", fontStyle: "italic" }}>
-              "
-              {!userEditState.motivation
-                ? "Please fill in your personal motivation"
-                : userEditState.motivation}
-              "
-            </h5>
-            <button onClick={handleCLick}>Edit</button>
-          </>
-        )}
+          ) : null}
+          <form
+            className="profile-form"
+            method="POST"
+            onSubmit={handleUserImage}
+            encType="multipart/form-data"
+          >
+            <input
+              className="input"
+              type="file"
+              name="imageUrl"
+              accept="image/png, image/jpg"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <div className="motivation">
+          <h4>What's your personal motivation?</h4>
+          {isEditingMotivation ? (
+            <div>
+              <input
+                type="text"
+                id="motivation"
+                name="motivation"
+                onChange={handleChangeMotivation}
+              />
+              <button className="motivation-save-btn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
+          ) : (
+            <>
+              <h5 style={{ color: "grey", fontStyle: "italic" }}>
+                "
+                {!userEditState.motivation
+                  ? "We would love to hear about your motivation to plant trees."
+                  : userEditState.motivation}
+                "
+              </h5>
+              <button onClick={handleCLick}>Edit</button>
+            </>
+          )}
+        </div>
+      </div>
+      <div className="welcome-trees">
+        <h3>Please mark the location for new trees in the map:</h3>
       </div>
 
-      <MyMap allTreeState={allTreeState} />
+      <MyMap className="map" allTreeState={allTreeState} />
     </div>
   );
 }

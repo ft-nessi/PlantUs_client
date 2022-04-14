@@ -1,8 +1,8 @@
 import React from "react";
 import { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import profileIconDark from "../images/profile-icon-dark.png";
-import logoDark from "../images/logo-minimal-dark.png";
+import profileIconWhite from "../images/profile-icon-white.png";
+import logoFontWhite from "../images/logo-font-white.png";
 import { API_BASE_URL } from "../consts";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import axios from "axios";
@@ -29,7 +29,7 @@ export function Navbar() {
       <div className="logo">
         <Link to="/">
           <img
-            src={logoDark}
+            src={logoFontWhite}
             style={{ height: "2.5em", margin: "1em" }}
             alt="Logo Navbar"
           />
@@ -40,9 +40,6 @@ export function Navbar() {
           {!user ? (
             <>
               <div className="auth">
-                {/* <button type="button" className="auth-login" to="/login">
-                Login
-              </button> */}
                 <button onClick={() => navigate("login", { replace: false })}>
                   Login
                 </button>
@@ -55,19 +52,20 @@ export function Navbar() {
             <>
               <div className="auth">
                 <Link to="/profile">
-                  <img height="1.5em" src={profileIconDark} alt="Profile Icon" />
+                  <img
+                    height="2em"
+                    src={profileIconWhite}
+                    style={{ height: "2em", margin: "0 2em 0 0" }}
+                    alt="Profile Icon"
+                  />
                 </Link>
-
-                <button onClick={() => navigate("profile/markedtrees", { replace: false })}>
-                    Marked Trees
-                </button>
-                {/* <NavLink
-                  className="nav-link"
-                  to="/profile/markedtrees"
-                  style={{ textDecoration: "none", color: "darkslategrey" }}
+                <button
+                  onClick={() =>
+                    navigate("profile/markedtrees", { replace: false })
+                  }
                 >
                   Marked Trees
-                </NavLink> */}
+                </button>
                 <button onClick={logout}>Logout</button>
               </div>
             </>
@@ -77,18 +75,18 @@ export function Navbar() {
                 <Link to="/profile">
                   <img
                     height="2em"
-                    src={profileIconDark}
-                    style={{ height: "1.5em", margin: "1.5em" }}
+                    src={profileIconWhite}
+                    style={{ height: "2em", margin: "0 2em 0 0" }}
                     alt="Profile Icon"
                   />
                 </Link>
-                <NavLink
-                  className="nav-link"
-                  to="/profile/mytrees"
-                  style={{ color: "white" }}
+                <button
+                  onClick={() =>
+                    navigate("profile/mytrees", { replace: false })
+                  }
                 >
                   My Trees
-                </NavLink>
+                </button>
                 <button className="auth" onClick={logout}>
                   Logout
                 </button>
