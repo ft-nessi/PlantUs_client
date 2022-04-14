@@ -31,7 +31,7 @@ export function Navbar() {
           <img
             src={logoWhite}
             style={{ height: "3em", margin: "1em" }}
-            alt="Profile Icon"
+            alt="Logo Navbar"
           />
         </Link>
       </div>
