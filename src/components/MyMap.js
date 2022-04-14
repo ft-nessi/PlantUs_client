@@ -69,6 +69,7 @@ function MyMap({ allTreeState = [] }) {
 
   const isLoggedIn = Boolean(user);
   const isOwner = isLoggedIn && user.isUser;
+  const isRanger = isLoggedIn && !user.isUser;
 
   //Do not forget to set a width and height style to your map. Else it won't show up
   return (
@@ -125,7 +126,8 @@ function MyMap({ allTreeState = [] }) {
                             <br />
                             Kind:{tree.kind}
                             <br />
-                            {tree.plantedDate && (`Planted Date: ${tree.plantedDate}`)}
+                            {tree.plantedDate &&
+                              `Planted Date: ${tree.plantedDate}`}
                             {isOwner && !tree.ownerId && (
                               <button onClick={getHandleToAddIdFunction(tree)}>
                                 Add to myTrees
@@ -138,83 +140,99 @@ function MyMap({ allTreeState = [] }) {
                   })}
               </LayerGroup>
             </LayersControl.Overlay>
-            <LayersControl.Overlay name={isOwner ? ("Trees to be planted") : ("Marked Trees")}>
+            <LayersControl.Overlay
+              name={isOwner ? "Trees to be planted" : "Marked Trees"}
+            >
               <LayerGroup>
-                {allTreeState.map((tree) => {
-                  if (isOwner && !tree.ownerId) {
-                    return (
-                      <div key={tree._id}>
-                        <Marker
-                          position={[
-                            Number(tree.location.coordinatesX),
-                            Number(tree.location.coordinatesY),
-                          ]}
-                          icon={getIcon(20, tree.ownerId)}
-                        >
-                          <Popup>
-                            Treename: {tree.treename}
-                            <br />
-                            Kind:{tree.kind}
-                            <br />
-                            Planted Date: {tree.plantedDate}
-                            <br />
-                            <button onClick={getHandleToAddIdFunction(tree)}>
-                              Add to myTrees
-                            </button>
-                          </Popup>
-                        </Marker>
-                      </div>
-                    );
-                  }
-                  if (!tree.ownerId && (tree.rangerId === user._id)) {
-                    return (
-                      <div key={tree._id}>
-                        <Marker
-                          position={[
-                            Number(tree.location.coordinatesX),
-                            Number(tree.location.coordinatesY),
-                          ]}
-                          icon={getIcon(20, tree.ownerId)}
-                        >
-                          <Popup>
-                            Treename: {tree.treename}
-                            <br />
-                            Kind:{tree.kind}
-                          </Popup>
-                        </Marker>
-                      </div>
-                    );
-                  }
-                })}
+                {isOwner &&
+                  allTreeState
+                    .filter((tree) => {
+                      return !tree.ownerId;
+                    })
+                    .map((tree) => {
+                      return (
+                        <div key={tree._id}>
+                          <Marker
+                            position={[
+                              Number(tree.location.coordinatesX),
+                              Number(tree.location.coordinatesY),
+                            ]}
+                            icon={getIcon(20, tree.ownerId)}
+                          >
+                            <Popup>
+                              Treename: {tree.treename}
+                              <br />
+                              Kind:{tree.kind}
+                              <br />
+                              Planted Date: {tree.plantedDate}
+                              <br />
+                              <button onClick={getHandleToAddIdFunction(tree)}>
+                                Add to myTrees
+                              </button>
+                            </Popup>
+                          </Marker>
+                        </div>
+                      );
+                    })}
+                {isRanger &&
+                  allTreeState
+                    .filter((tree) => {
+                      return !tree.rangerId === user._id;
+                    })
+                    .map((tree) => {
+                      return (
+                        <div key={tree._id}>
+                          <Marker
+                            position={[
+                              Number(tree.location.coordinatesX),
+                              Number(tree.location.coordinatesY),
+                            ]}
+                            icon={getIcon(20, tree.ownerId)}
+                          >
+                            <Popup>
+                              Treename: {tree.treename}
+                              <br />
+                              Kind:{tree.kind}
+                            </Popup>
+                          </Marker>
+                        </div>
+                      );
+                    })}
               </LayerGroup>
             </LayersControl.Overlay>
-            {isOwner && (<LayersControl.Overlay name="My planted Trees">
-              <LayerGroup>
-                {allTreeState.map((tree) => {
-                  if (isOwner && (tree.ownerId === user._id)) {
-                    return (
-                      <div key={tree._id}>
-                        <Marker
-                          position={[
-                            Number(tree.location.coordinatesX),
-                            Number(tree.location.coordinatesY),
-                          ]}
-                          icon={getIcon(20, tree.ownerId)}
-                        >
-                          <Popup>
-                            Treename: {tree.treename}
-                            <br />
-                            Kind:{tree.kind}
-                            <br />
-                            {tree.plantedDate && (`Planted Date: ${tree.plantedDate}`)}
-                          </Popup>
-                        </Marker>
-                      </div>
-                    );
-                  }
-                })}
-              </LayerGroup>
-            </LayersControl.Overlay>)}
+            {isOwner && (
+              <LayersControl.Overlay name="My planted Trees">
+                <LayerGroup>
+                  {isOwner &&
+                    allTreeState
+                      .filter((tree) => {
+                        return tree.ownerId === user._id;
+                      })
+                      .map((tree) => {
+                        return (
+                          <div key={tree._id}>
+                            <Marker
+                              position={[
+                                Number(tree.location.coordinatesX),
+                                Number(tree.location.coordinatesY),
+                              ]}
+                              icon={getIcon(20, tree.ownerId)}
+                            >
+                              <Popup>
+                                Treename: {tree.treename}
+                                <br />
+                                Kind:{tree.kind}
+                                <br />
+                                {tree.plantedDate &&
+                                  `Planted Date: ${tree.plantedDate}`}
+                              </Popup>
+                            </Marker>
+                          </div>
+                        );
+                      })}
+                </LayerGroup>
+              </LayersControl.Overlay>
+            )}
           </LayersControl>
         )}
       </MapContainer>

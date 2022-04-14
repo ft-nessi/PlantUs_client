@@ -26,7 +26,7 @@ export function Profile() {
       }
     }
   getUpdatedUser()
-}, [])
+}, [user])
 
   useEffect(() => {
     if (!user && !isLoading) {
