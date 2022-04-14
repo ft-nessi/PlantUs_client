@@ -10,7 +10,7 @@ import axios from "axios";
 // import "./Navbar.css";
 
 export function Navbar() {
-  const { user, removeUserFromContext, isLoading } = useContext(AuthContext);
+  const { user, removeUserFromContext} = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logout = async () => {
