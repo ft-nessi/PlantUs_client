@@ -7,6 +7,12 @@ export const AuthContext = createContext();
 export function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading ] = useState(true);
+
+  const addUserToContext = (newUser) => {
+    if (user !== null) return;
+    setUser(newUser);
+    console.log("this is the user", newUser);
+  };
   
   useEffect( ()=> {
 
@@ -22,13 +28,7 @@ export function AuthProviderWrapper(props) {
       }
     }
     tryLogin();
-  },[])
-
-  const addUserToContext = (newUser) => {
-    if (user !== null) return;
-    setUser(newUser);
-    console.log("this is the user", newUser);
-  };
+  },)
 
   const removeUserFromContext = () => {
     setUser(null);
