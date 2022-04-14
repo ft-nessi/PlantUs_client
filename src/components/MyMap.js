@@ -191,7 +191,7 @@ function MyMap({ allTreeState = [] }) {
             {isOwner && (<LayersControl.Overlay name="My planted Trees">
               <LayerGroup>
                 {allTreeState.map((tree) => {
-                  if (isOwner && tree.ownerId) {
+                  if (isOwner && (tree.ownerId === user._id)) {
                     return (
                       <div key={tree._id}>
                         <Marker
