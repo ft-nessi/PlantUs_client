@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "./Navbar";
-import logoWhite from "../images/logo-white.png";
-import profileIcon from "../images/profile-icon.png";
-
+import logoWhite from "../images/logo-minimal-white.png";
 
 export function LayoutComponent() {
   return (
@@ -15,14 +13,16 @@ export function LayoutComponent() {
       </div>
 
       <footer className="footer-container">
-        <p> Made by Ironhackers</p>
-        <div>
-          <img className="logo-footer" src={profileIcon} alt="Logo" />
-        
+        <div className="footer-left">
+          <p> Made by Ironhackers</p>
         </div>
-        {/* <div className="footer-left">
-          <div><div></div></div>
-        </div> */}
+        <div className="logo-footer">
+          <img className="logo-white-footer" src={logoWhite} alt="Logo" />
+        </div>
+        <div className="footer-right">
+          <p>Vanessa Fernandes Branco <br/>
+          Lysann Küttner</p>
+        </div>
       </footer>
     </div>
   );

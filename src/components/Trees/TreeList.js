@@ -14,7 +14,7 @@ export function TreeList() {
     }
 
     return (
-        <div>
+        <div className="treeslist-outlet">
             <h1>This are your {!user.isUser && ("marked") } trees</h1>
             {!user.isUser && (<button onClick={handleNavigateNewTree}>Add a new Tree!</button>)}
             <Trees />

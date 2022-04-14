@@ -3,6 +3,9 @@ body {
   background: #c2e7d9;
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -12,7 +15,7 @@ body {
 
 .navbar-container {
   width: 100vw;
-  height: 8vh;
+  height: 9vh;
   background-color: white;
   display: flex;
   justify-content: flex-end;
@@ -24,17 +27,16 @@ body {
   align-items: center;
 }
 
-.outlet-container {
-  width: 100vw;
-  height: 82vh;
+.logo {
+  position: absolute;
+  width: 10vw;
+  height: auto;
+  left: 1em;
 }
 
-.logo {
-  margin: 0;
-  position: absolute;
-  width: 100px;
-  height: auto;
-  left: 0;
+.outlet-container {
+  width: 100vw;
+  height: 81vh;
 }
 
 .auth {
@@ -47,13 +49,19 @@ body {
   min-width: 8vw;
   height: 3.5vh;
   text-decoration: none;
-  border-style: none;
+  border-width: 0.05em;
+  border-color: #255957;
   color: #255957;
-  background: #c2e7d9;
-  justify-content: flex-end;
+  background: white;
+  justify-content: center;
   align-items: center;
-  margin: 0 2em;
-  border-radius: 3px;
+  margin: 0 2em 0 0;
+  border-radius: 0.8em;
+}
+
+.auth > a {
+  text-decoration: none;
+  color: #255957 !important;
 }
 
 .home {
@@ -75,14 +83,20 @@ body {
   min-width: 8vw;
   text-decoration-color: white;
 }
+
+.treeslist-outlet > h1 {
+  margin: 0;
+  padding: 2vw;
+}
+
 .footer-container {
   width: 100vw;
   height: 10vh;
   background-color: darkslategray;
-  /* margin: 3em; */
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .footer-container > p {
@@ -92,4 +106,29 @@ body {
 
 .logo-footer {
   width: 2em;
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-white-footer {
+  width: 2em;
+  height: auto;
+}
+
+.footer-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 10px;
+  margin: 0 0 0 2vw;
+}
+
+.footer-right {
+  color: white;
+  font-size: 10px;
+  display: flex;
+  margin: 0 2vw 0 0;
 }
