@@ -32,13 +32,13 @@ export function Trees() {
   const [allTrees, setAllTrees] = useState([]);
 
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, isLoading } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user, navigate, isLoading]);
 
   // router.get /ranger/markedtrees - find all trees with the ranger's id
   useEffect(() => {

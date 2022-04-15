@@ -12,21 +12,18 @@ export function Profile() {
   const [userEditState, setUserEditState] = useState(user);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-
+  useEffect(() => {
     async function getUpdatedUser() {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/user`
-        );
+        const response = await axios.get(`${API_BASE_URL}/user`);
         setUserEditState(response.data.user);
         console.log(user);
       } catch (err) {
         console.log("Error in updating the tree on the server", err);
       }
     }
-  getUpdatedUser()
-}, [user])
+    getUpdatedUser();
+  }, [user]);
 
   useEffect(() => {
     if (!user && !isLoading) {
@@ -64,7 +61,7 @@ export function Profile() {
   }
 
   async function handleUserImage(event) {
-    console.log("Event submit image", event)
+    console.log("Event submit image", event);
     event.preventDefault();
     let image = event.target.imageUrl.files[0];
     let imageFormData = new FormData();
@@ -81,7 +78,7 @@ export function Profile() {
   }
 
   async function handleSubmit(event) {
-    console.log("Event motivation", event)
+    console.log("Event motivation", event);
 
     event.preventDefault();
     setIsEditingMotivation(false);
@@ -104,7 +101,7 @@ export function Profile() {
         <div className="welcome-section">
           {user && <h2>Welcome, {user.username}!</h2>}
           <h3>Foto</h3>
-          {userEditState.imageUrl ? (
+          {userEditState?.imageUrl ? (
             <img
               src={userEditState.imageUrl}
               alt="profile pic"
@@ -145,7 +142,7 @@ export function Profile() {
             <>
               <h5 style={{ color: "grey", fontStyle: "italic" }}>
                 "
-                {!userEditState.motivation
+                {!userEditState?.motivation
                   ? "We would love to hear about your motivation to plant trees."
                   : userEditState.motivation}
                 "

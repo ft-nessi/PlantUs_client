@@ -6,29 +6,27 @@ export const AuthContext = createContext();
 
 export function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading ] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const addUserToContext = (newUser) => {
     if (user !== null) return;
     setUser(newUser);
     console.log("this is the user", newUser);
   };
-  
-  useEffect( ()=> {
 
-    async function tryLogin () {
+  useEffect(() => {
+    async function tryLogin() {
       try {
         const response = await axios.get(API_BASE_URL + "/user");
         console.log(response.data);
         addUserToContext(response.data.user);
       } catch (err) {
-        
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     tryLogin();
-  },)
+  });
 
   const removeUserFromContext = () => {
     setUser(null);
@@ -36,7 +34,7 @@ export function AuthProviderWrapper(props) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isLoading ,addUserToContext, removeUserFromContext }}
+      value={{ user, isLoading, addUserToContext, removeUserFromContext }}
     >
       {props.children}
     </AuthContext.Provider>
