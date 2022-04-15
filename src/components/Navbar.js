@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profileIconWhite from "../images/profile-icon-white.png";
 import logoFontWhite from "../images/logo-font-white.png";
 import { API_BASE_URL } from "../consts";
