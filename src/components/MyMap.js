@@ -75,7 +75,7 @@ function MyMap({ allTreeState = [] }) {
   return (
     <div className="mymap">
       <MapContainer
-        style={{ width: "91vw", height: "50vh", padding: "1em", display: "flex", alignItems: "center" }}
+        style={{ width: "91vw", height: "50vh", padding: "1em", display: "flex", alignItems: "center", position:"relative" }}
         center={position}
         zoom={3}
         scrollWheelZoom={false}
@@ -119,7 +119,7 @@ function MyMap({ allTreeState = [] }) {
                             Number(tree.location.coordinatesX),
                             Number(tree.location.coordinatesY),
                           ]}
-                          icon={getIcon(20, tree.ownerId)}
+                          icon={getIcon(51, tree.ownerId)}
                         >
                           <Popup>
                             Treename: {tree.treename}
@@ -157,7 +157,7 @@ function MyMap({ allTreeState = [] }) {
                               Number(tree.location.coordinatesX),
                               Number(tree.location.coordinatesY),
                             ]}
-                            icon={getIcon(20, tree.ownerId)}
+                            icon={getIcon(51, tree.ownerId)}
                           >
                             <Popup>
                               Treename: {tree.treename}
@@ -187,7 +187,7 @@ function MyMap({ allTreeState = [] }) {
                               Number(tree.location.coordinatesX),
                               Number(tree.location.coordinatesY),
                             ]}
-                            icon={getIcon(20, tree.ownerId)}
+                            icon={getIcon(51, tree.ownerId)}
                           >
                             <Popup>
                               Treename: {tree.treename}
@@ -216,7 +216,7 @@ function MyMap({ allTreeState = [] }) {
                                 Number(tree.location.coordinatesX),
                                 Number(tree.location.coordinatesY),
                               ]}
-                              icon={getIcon(20, tree.ownerId)}
+                              icon={getIcon(51, tree.ownerId)}
                             >
                               <Popup>
                                 Treename: {tree.treename}
