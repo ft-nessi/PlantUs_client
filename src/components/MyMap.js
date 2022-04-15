@@ -77,7 +77,7 @@ function MyMap({ allTreeState = [] }) {
       <MapContainer
         style={{ width: "91vw", height: "50vh", padding: "1em", display: "flex", alignItems: "center", position:"relative" }}
         center={position}
-        zoom={3}
+        zoom={4}
         scrollWheelZoom={false}
       >
         <TileLayer
@@ -119,7 +119,7 @@ function MyMap({ allTreeState = [] }) {
                             Number(tree.location.coordinatesX),
                             Number(tree.location.coordinatesY),
                           ]}
-                          icon={getIcon(100, tree.ownerId)}
+                          icon={getIcon(60, tree.ownerId)}
                         >
                           <Popup>
                             Treename: {tree.treename}

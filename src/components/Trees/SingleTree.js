@@ -64,7 +64,7 @@ export function SingleTree({ tree, updateSingleTree, deleteSingleTree }) {
               "Please edit the planted Date"
             </span>
           ) : (
-            tree.plantedDate
+            tree.plantedDate.split("T")[0]
           )}
           <br />
           <button onClick={handleEdit}>Edit</button>

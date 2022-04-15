@@ -100,7 +100,6 @@ export function Profile() {
       <div className="welcome">
         <div className="welcome-section">
           {user && <h2>Welcome, {user.username}!</h2>}
-          <h3>Foto</h3>
           {userEditState?.imageUrl ? (
             <img
               src={userEditState.imageUrl}
@@ -120,7 +119,7 @@ export function Profile() {
               name="imageUrl"
               accept="image/png, image/jpg"
             />
-            <button type="submit">Submit</button>
+            <button className="submit-picture" type="submit">Submit <br/> profile picture</button>
           </form>
         </div>
 
