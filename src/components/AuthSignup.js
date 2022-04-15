@@ -102,6 +102,7 @@ export function AuthSignup({
     <div className="container-form">
       <div className="login-signup">
         <div className="login-register-div">
+        <div className="toggle">
           <input
             id="user"
             type="radio"
@@ -124,6 +125,7 @@ export function AuthSignup({
           <label className="tab-label" htmlFor="ranger">
             Ranger
           </label>
+          </div>
           <form onSubmit={handleSubmit}>
             {error && error.message}
             <br />

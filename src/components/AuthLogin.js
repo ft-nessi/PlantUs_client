@@ -33,6 +33,7 @@ export function AuthLogin({
     <div className="container-form">
       <div className="login-signup">
         <div className="login-register-div">
+        <div className="toggle">
           <input
             id="user"
             type="radio"
@@ -55,6 +56,8 @@ export function AuthLogin({
           <label className="tab-label" htmlFor="ranger">
             Ranger
           </label>
+          </div>
+          <br />
           <form onSubmit={handleSubmit}>
             {error && error.message}
             <input
@@ -64,6 +67,7 @@ export function AuthLogin({
               placeholder="Email"
               onChange={handleLoginState}
             />
+            <br />
             <input
               type="password"
               name="password"
@@ -71,6 +75,7 @@ export function AuthLogin({
               placeholder="Password"
               onChange={handleLoginState}
             />
+            <br />
             <button className="btn-signup" type="submit">
               {submitButtonText}
             </button>

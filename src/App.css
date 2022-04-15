@@ -105,20 +105,115 @@ body {
   height: 64%;
 }
 
-.login-signup {
-  padding: 4vw;
+/* CSS for signup and login page */
+
+.signup-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   background-color: rgb(199, 232, 232);
+  height: 100%;
 }
 
-.btn-signup {
-  background-color: darkslategray;
-  margin: 2vw;
-  border: none;
-  border-radius: 8px;
-  min-height: 1vw;
-  min-width: 8vw;
-  text-decoration-color: white;
+.signup-div > h3 {
+  color: #255957 !important;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0 0 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 2em;
+  margin: 0;
 }
+
+
+.login-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4vw;
+  background-color: #faeaa9;
+  border-radius: 10%;
+  margin: 3em 0 0 0
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.tab-label{
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #255957 !important;
+
+}
+
+.login-register-div {
+  display: flex;
+  justify-content: center;
+  width: 40vw;
+  flex-direction: column;
+}
+
+.login-register-div > form{
+  display: flex;
+  justify-content: center;
+  width: 40vw;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+
+}
+
+.login-register-div > form > input{
+  display: flex;
+  justify-content: center;
+  width: 40vw;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+
+}
+
+.login-register-div > form > div{
+  display: flex;
+  justify-content: center;
+  width: 40vw;
+  flex-direction: column;
+  margin: 0 0 1em 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+}
+
+.login-register-div > form > div > input{
+  font-family: "Nunito", sans-serif;
+  width: 40vw;
+  font-size: 1rem;
+}
+
+
+
+.btn-signup {
+  min-width: 8vw;
+    height: 2.6vh;
+    text-decoration: none;
+    border-width: 0.05em;
+    border-color: rgb(199, 232, 232);
+    color: #255957;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.3em;
+    font-weight: 600;
+    font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+}
+
+/* CSS for login */
 
 .welcome {
   padding: 0 2em;

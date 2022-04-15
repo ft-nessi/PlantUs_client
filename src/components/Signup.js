@@ -28,7 +28,7 @@ export function Signup() {
   };
 
   return (
-    <div>
+    <div className="signup-div">
       <h3>Signup Page</h3>
       <AuthSignup
         submitButtonText={"Signup!"}
