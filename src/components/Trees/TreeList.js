@@ -17,8 +17,9 @@ export function TreeList() {
       <div className="treelist-outlet">
         <div className="treelist-text">
           <h2>
-            Here you'll find all the trees you've already{" "}
-            {!user.isUser && "marked"}.
+            Here you'll find all the trees you have already{" "}
+            {!user.isUser && "marked"}
+            {user.isUser && "planted"}
           </h2>
           {!user.isUser && (
             <button onClick={handleNavigateNewTree}>Add a new Tree!</button>
